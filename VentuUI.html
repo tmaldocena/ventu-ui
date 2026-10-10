@@ -1,0 +1,1765 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>VentuUI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Nunito:wght@400;500;600&display=swap">
+<style>
+/*
+  Layout: documentación con riel lateral en inverse-surface y contenido sobre background.
+  La página se arma con los mismos tokens que documenta.
+*/
+/* ==========================================================================
+   Ventu — Design tokens
+   Fuente: Ventu-tokens.json (export de Figma). Solo tema Light.
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------------
+     Color · surface
+     ------------------------------------------------------------------------ */
+  --color-surface: #f7f2ea;
+  --color-surface-dim: #e3dfd9;
+  --color-surface-bright: #f7f2ea;
+  --color-container-lowest: #ffffff;
+  --color-container-low: #fbfaf9;
+  --color-container: #f6f5f3;
+  --color-container-high: #f2f0ed;
+  --color-container-highest: #eeebe8;
+  --color-on-surface: #09192a;
+  --color-on-surface-variant: #584f41;
+  --color-inverse-surface: #133153;
+  --color-inverse-on-surface: #f7f2ea;
+  --color-surface-tint: #c26745;
+  --color-surface-variant: #e8e7e3;
+
+  /* ------------------------------------------------------------------------
+     Color · primary (terracota)
+     ------------------------------------------------------------------------ */
+  --color-primary: #c26745;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #f2e0d9;
+  --color-on-primary-container: #26140d;
+  --color-inverse-primary: #e6c0b2;
+  --color-primary-fixed: #f2e0d9;
+  --color-primary-fixed-dim: #e6c0b2;
+  --color-on-primary-fixed: #26140d;
+  --color-on-primary-fixed-variant: #733b26;
+
+  /* ------------------------------------------------------------------------
+     Color · secondary (azul marino)
+     ------------------------------------------------------------------------ */
+  --color-secondary: #0f2742;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #d5e5f6;
+  --color-on-secondary-container: #09192a;
+  --color-secondary-fixed: #d5e5f6;
+  --color-secondary-fixed-dim: #accaec;
+  --color-on-secondary-fixed: #09192a;
+  --color-on-secondary-fixed-variant: #1c4a7d;
+
+  /* ------------------------------------------------------------------------
+     Color · tertiary (celeste / accent)
+     ------------------------------------------------------------------------ */
+  --color-tertiary: #5b87a6;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #dee7ed;
+  --color-on-tertiary-container: #121b21;
+  --color-tertiary-fixed: #dee7ed;
+  --color-tertiary-fixed-dim: #bdcfdb;
+  --color-on-tertiary-fixed: #121b21;
+  --color-on-tertiary-fixed-variant: #365063;
+
+  /* ------------------------------------------------------------------------
+     Color · error
+     ------------------------------------------------------------------------ */
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* ------------------------------------------------------------------------
+     Color · outline
+     ------------------------------------------------------------------------ */
+  --color-outline: #dad7d0;
+  --color-outline-variant: #f1f0ee;
+
+  /* ------------------------------------------------------------------------
+     Color · background
+     ------------------------------------------------------------------------ */
+  --color-background: #f7f2ea;
+  --color-on-background: #09192a;
+
+  /* ------------------------------------------------------------------------
+     Elevation
+     ------------------------------------------------------------------------ */
+  /* Sombra sutil para cards y fichas */
+  --shadow-card: 0 2px 8px 0 #2b26200d, 0 1px 2px 0 #2b262014;
+  /* Sombra elevada para modales y diálogos */
+  --shadow-flyout: 0 12px 32px 0 #2b26201f;
+
+  /* ------------------------------------------------------------------------
+     Typography · familias
+     ------------------------------------------------------------------------ */
+  --font-nunito: "Nunito", system-ui, sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* ------------------------------------------------------------------------
+     Typography · pesos
+     ------------------------------------------------------------------------ */
+  --font-weight-nunito-0: 600; /* SemiBold */
+  --font-weight-nunito-1: 500; /* Medium */
+  --font-weight-nunito-2: 400; /* Regular */
+  --font-weight-jetbrains-mono-3: 500; /* Medium */
+  --font-weight-jetbrains-mono-4: 400; /* Regular */
+
+  /* ------------------------------------------------------------------------
+     Typography · tamaños (px de Figma → rem, base 16px)
+     ------------------------------------------------------------------------ */
+  --font-size-0: 0.6875rem; /* 11px */
+  --font-size-1: 0.75rem; /* 12px */
+  --font-size-2: 0.8125rem; /* 13px */
+  --font-size-3: 0.9375rem; /* 15px */
+  --font-size-4: 1.0625rem; /* 17px */
+  --font-size-5: 1.125rem; /* 18px */
+  --font-size-6: 1.375rem; /* 22px */
+  --font-size-7: 1.5rem; /* 24px */
+  --font-size-8: 1.75rem; /* 28px */
+  --font-size-9: 2rem; /* 32px */
+  --font-size-10: 2.75rem; /* 44px */
+
+  /* ------------------------------------------------------------------------
+     Typography · interlineado (% → unitless)
+     ------------------------------------------------------------------------ */
+  --line-height-0: 1.15;
+  --line-height-1: 1.2;
+  --line-height-2: 1.25;
+  --line-height-3: 1.25;
+  --line-height-4: 1.3;
+  --line-height-5: 1.35;
+  --line-height-6: 1.6;
+  --line-height-7: 1.55;
+  --line-height-8: 1.5;
+  --line-height-9: 1.3;
+  --line-height-10: 1.3;
+  --line-height-11: 1.3;
+  --line-height-12: 1.3;
+  --line-height-13: 1.5;
+
+  /* ------------------------------------------------------------------------
+     Typography · letter-spacing (% del tamaño de fuente → em)
+     ------------------------------------------------------------------------ */
+  --letter-spacing-0: -0.02em;
+  --letter-spacing-1: -0.015em;
+  --letter-spacing-2: -0.01em;
+  --letter-spacing-3: 0em;
+  --letter-spacing-4: 0.005em;
+  --letter-spacing-5: 0.01em;
+  --letter-spacing-6: 0.015em;
+  --letter-spacing-7: 0.02em;
+  --letter-spacing-8: 0.03em;
+  --letter-spacing-9: 0.04em;
+
+  /* ------------------------------------------------------------------------
+     Typography · párrafo
+     ------------------------------------------------------------------------ */
+  --paragraph-spacing-0: 0;
+  --paragraph-indent-0: 0px;
+}
+
+/* ==========================================================================
+   Estilos de texto (opcional)
+   Equivalen 1:1 a los text styles de Figma. Aplicalos como clase
+   (ej. <h1 class="text-display-lg">) o borrá esta sección si preferís
+   armar tus propios estilos con las variables de arriba.
+   ========================================================================== */
+
+/* Display */
+.text-display-lg {
+  /* Hero sections, brand headers */
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-0);
+  font-size: var(--font-size-10);
+  line-height: var(--line-height-0);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+.text-display-md {
+  /* Section headers, maker titles */
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-1);
+  font-size: var(--font-size-9);
+  line-height: var(--line-height-1);
+  letter-spacing: var(--letter-spacing-1);
+}
+
+.text-display-sm {
+  /* Card titles, subsection headers */
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-2);
+  font-size: var(--font-size-7);
+  line-height: var(--line-height-2);
+  letter-spacing: var(--letter-spacing-2);
+}
+
+/* Headline */
+.text-headline-lg {
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-0);
+  font-size: var(--font-size-8);
+  line-height: var(--line-height-2);
+  letter-spacing: var(--letter-spacing-2);
+}
+
+.text-headline-md {
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-1);
+  font-size: var(--font-size-6);
+  line-height: var(--line-height-4);
+  letter-spacing: var(--letter-spacing-3);
+}
+
+.text-headline-sm {
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-2);
+  font-size: var(--font-size-5);
+  line-height: var(--line-height-5);
+  letter-spacing: var(--letter-spacing-3);
+}
+
+/* Body */
+.text-body-lg {
+  /* Texto de lectura principal, descripciones */
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-2);
+  font-size: var(--font-size-4);
+  line-height: var(--line-height-6);
+  letter-spacing: var(--letter-spacing-4);
+}
+
+.text-body-md {
+  /* Texto secundario, descripciones de UI */
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-2);
+  font-size: var(--font-size-3);
+  line-height: var(--line-height-7);
+  letter-spacing: var(--letter-spacing-5);
+}
+
+.text-body-sm {
+  /* Captions, footnotes */
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-2);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-8);
+  letter-spacing: var(--letter-spacing-6);
+}
+
+/* Label */
+.text-label-lg {
+  /* Botones primarios, labels prominentes */
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-0);
+  font-size: var(--font-size-3);
+  line-height: var(--line-height-4);
+  letter-spacing: var(--letter-spacing-7);
+}
+
+.text-label-md {
+  /* Botones, chips, items de navegación */
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-1);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-4);
+  letter-spacing: var(--letter-spacing-8);
+}
+
+.text-label-sm {
+  /* Badges, micro-texto */
+  font-family: var(--font-nunito);
+  font-weight: var(--font-weight-nunito-1);
+  font-size: var(--font-size-0);
+  line-height: var(--line-height-4);
+  letter-spacing: var(--letter-spacing-9);
+}
+
+/* Mono */
+.text-label-mono {
+  /* Distancias, horarios, precios, códigos postales */
+  font-family: var(--font-jetbrains-mono);
+  font-weight: var(--font-weight-jetbrains-mono-3);
+  font-size: var(--font-size-1);
+  line-height: var(--line-height-4);
+  letter-spacing: var(--letter-spacing-9);
+}
+
+.text-body-mono {
+  /* Datos numéricos, bloques de metadata */
+  font-family: var(--font-jetbrains-mono);
+  font-weight: var(--font-weight-jetbrains-mono-4);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-8);
+  letter-spacing: var(--letter-spacing-7);
+}
+
+
+/* ==========================================================================
+   Estructura de la documentación
+   ========================================================================== */
+:root {
+  --doc-rail: 17rem;
+  --doc-line: color-mix(in srgb, var(--color-on-surface) 12%, transparent);
+  --doc-scrim: color-mix(in srgb, var(--color-on-surface) 42%, transparent);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-nunito);
+  font-size: var(--font-size-3);
+  line-height: var(--line-height-7);
+  letter-spacing: var(--letter-spacing-5);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+a { color: inherit; }
+code, pre { font-family: var(--font-jetbrains-mono); }
+button { font-family: inherit; }
+:focus-visible { outline: 2px solid var(--color-tertiary); outline-offset: 2px; }
+
+.shell { display: grid; grid-template-columns: var(--doc-rail) minmax(0, 1fr); align-items: start; }
+
+/* Riel lateral */
+.rail {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  height: calc(100vh - env(safe-area-inset-top, 0px));
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 28px 20px;
+  background: var(--color-inverse-surface);
+  color: var(--color-inverse-on-surface);
+}
+.rail-brand { display: flex; flex-direction: column; gap: 2px; text-decoration: none; }
+.rail-name { display: flex; align-items: center; gap: 10px; }
+.rail-logo { width: 34px; height: auto; flex-shrink: 0; color: var(--color-inverse-primary); }
+.rail-sub { color: var(--color-secondary-fixed-dim); }
+.rail-nav { display: flex; flex-direction: column; gap: 22px; }
+.rail-group { display: flex; flex-direction: column; gap: 2px; }
+.rail-label { padding: 0 10px 6px; color: var(--color-secondary-fixed-dim); text-transform: uppercase; }
+.rail-group a { display: block; padding: 7px 10px; border-radius: 8px; text-decoration: none; }
+.rail-group a:hover { background: color-mix(in srgb, var(--color-inverse-on-surface) 10%, transparent); }
+.rail-group a[aria-current="true"] {
+  background: color-mix(in srgb, var(--color-inverse-on-surface) 14%, transparent);
+  color: var(--color-inverse-primary);
+}
+.rail-copy { margin-top: auto; }
+
+/* Contenido */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 8vw, 96px);
+  width: 100%;
+  max-width: 64rem;
+  padding-block: clamp(32px, 6vw, 72px);
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+.sec { display: flex; flex-direction: column; gap: 32px; scroll-margin-top: 24px; }
+.sec-head { display: flex; flex-direction: column; gap: 10px; max-width: 46rem; }
+.eyebrow { color: var(--color-on-primary-fixed-variant); text-transform: uppercase; }
+.lead { color: var(--color-on-surface-variant); }
+.muted { color: var(--color-on-surface-variant); }
+.hint { color: var(--color-on-surface-variant); }
+.sub { display: flex; flex-direction: column; gap: 16px; }
+.sub-head { display: flex; flex-direction: column; gap: 6px; max-width: 46rem; }
+code.inline {
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--color-container-high);
+  color: var(--color-on-surface);
+  font-size: 0.875em;
+}
+
+/* Inicio */
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.hero-text { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.hero-text .lead { max-width: 36rem; }
+.hero-title span { color: var(--color-primary); }
+.hero-facts { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--color-on-surface-variant); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.hero-cta .v-btn { text-decoration: none; }
+.hero-mark { display: grid; place-items: center; width: min(100%, 24rem); justify-self: end; aspect-ratio: 1; border-radius: 32px; background: var(--color-primary-container); }
+.hero-disc { display: grid; place-items: center; width: 74%; aspect-ratio: 1; border-radius: 50%; background: var(--color-container-lowest); box-shadow: var(--shadow-card); color: var(--color-primary); }
+.hero-logo { width: 62%; height: auto; }
+.base { display: flex; flex-direction: column; gap: 14px; }
+.base-strip {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 12px;
+}
+.base-item { display: flex; flex-direction: column; gap: 10px; }
+.base-chip { height: 112px; border-radius: 14px; box-shadow: inset 0 0 0 1px var(--doc-line); }
+.base-cap { display: flex; flex-direction: column; gap: 2px; }
+
+/* Pasos */
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 32px; }
+.step { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 16px; }
+.step-n {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+}
+.step-body { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.step-body p { max-width: 42rem; }
+
+/* Bloques de código */
+.code { border-radius: 14px; overflow: hidden; background: var(--color-on-surface); color: var(--color-inverse-on-surface); }
+.code-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 8px 6px 16px;
+  background: var(--color-inverse-surface);
+  color: var(--color-secondary-fixed-dim);
+}
+.code-copy {
+  min-height: 30px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-inverse-on-surface) 12%, transparent);
+  color: var(--color-inverse-on-surface);
+  cursor: pointer;
+}
+.code-copy:hover { background: color-mix(in srgb, var(--color-inverse-on-surface) 22%, transparent); }
+.code pre { margin: 0; padding: 16px; overflow-x: auto; font-size: var(--font-size-2); line-height: var(--line-height-7); tab-size: 2; }
+.code code { font-family: var(--font-jetbrains-mono); }
+.code .c { color: color-mix(in srgb, var(--color-inverse-on-surface) 58%, transparent); }
+.code .s { color: var(--color-tertiary-fixed-dim); }
+.code .p { color: var(--color-secondary-fixed-dim); }
+.code .v { color: var(--color-inverse-primary); }
+details.full { border-radius: 14px; box-shadow: inset 0 0 0 1px var(--doc-line); background: var(--color-container-lowest); }
+details.full > summary { padding: 14px 16px; cursor: pointer; }
+details.full[open] > summary { box-shadow: 0 1px 0 var(--doc-line); }
+details.full .code { border-radius: 0 0 14px 14px; }
+
+/* Colores */
+.names { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 12px; }
+.name-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--color-container-lowest);
+  box-shadow: inset 0 0 0 1px var(--doc-line);
+}
+.name-card p { color: var(--color-on-surface-variant); }
+.group { display: flex; flex-direction: column; gap: 14px; padding-top: 28px; border-top: 1px solid var(--color-outline); }
+.group-head { display: flex; flex-direction: column; gap: 4px; max-width: 46rem; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 12px; }
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--color-container-lowest);
+  box-shadow: inset 0 0 0 1px var(--doc-line);
+  color: var(--color-on-surface);
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+.swatch:hover { box-shadow: var(--shadow-card), inset 0 0 0 1px var(--doc-line); }
+.swatch-chip { display: block; height: 72px; border-radius: 8px; box-shadow: inset 0 0 0 1px var(--doc-line); }
+.swatch-name { display: block; padding-inline: 2px; overflow-wrap: anywhere; }
+.swatch-hex { display: block; padding-inline: 2px; color: var(--color-on-surface-variant); }
+
+/* Pares y contraste */
+.pairs { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 14px; }
+.pair { display: flex; flex-direction: column; border-radius: 14px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--doc-line); background: var(--color-container-lowest); }
+.pair-demo { display: flex; align-items: baseline; gap: 14px; padding: 20px 18px; }
+.pair-meta { display: flex; flex-direction: column; gap: 8px; padding: 12px 16px 14px; }
+.pair-vars { display: flex; flex-direction: column; gap: 2px; color: var(--color-on-surface-variant); overflow-wrap: anywhere; }
+.pair-score { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.lvl { display: inline-flex; padding: 2px 8px; border-radius: 6px; }
+.lvl-aaa, .lvl-aa { background: var(--color-tertiary-container); color: var(--color-on-tertiary-container); }
+.lvl-large { background: var(--color-primary-container); color: var(--color-on-primary-container); }
+.lvl-fail { background: var(--color-error-container); color: var(--color-on-error-container); }
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 46rem;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}
+
+/* Superficies */
+.surfaces { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 12px; }
+.surf { display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; min-height: 108px; padding: 12px; border-radius: 14px; box-shadow: inset 0 0 0 1px var(--doc-line); color: var(--color-on-surface); }
+.surf-hex { color: var(--color-on-surface-variant); }
+.nest-demo { display: flex; flex-direction: column; gap: 14px; }
+.nest { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--doc-line); color: var(--color-on-surface); }
+.nest > span { color: var(--color-on-surface-variant); }
+.nest-1 { background: var(--color-surface); }
+.nest-2 { background: var(--color-container-lowest); }
+.nest-3 { background: var(--color-container-high); }
+
+/* Elevación */
+.elev { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 24px; }
+.elev-item { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.elev-stage { display: grid; place-items: center; padding: 40px 24px; border-radius: 16px; background: var(--color-surface); box-shadow: inset 0 0 0 1px var(--doc-line); }
+.elev-box { display: flex; flex-direction: column; justify-content: center; gap: 4px; width: min(100%, 15rem); min-height: 120px; padding: 18px; border-radius: 16px; background: var(--color-container-lowest); color: var(--color-on-surface); }
+.elev-meta { display: flex; flex-direction: column; gap: 6px; }
+.elev-meta code { color: var(--color-on-surface-variant); overflow-wrap: anywhere; }
+
+/* Tipografía */
+.families { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 14px; }
+.family { display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 16px; background: var(--color-container-lowest); box-shadow: inset 0 0 0 1px var(--doc-line); }
+.family-glyphs { font-size: var(--font-size-10); line-height: var(--line-height-0); color: var(--color-on-surface); overflow-wrap: anywhere; }
+.family-weights { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--color-on-surface-variant); }
+.type-list { display: flex; flex-direction: column; }
+.type-row { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 8px 32px; align-items: baseline; padding-block: 20px; border-top: 1px solid var(--color-outline); }
+.type-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.type-meta .use { color: var(--color-on-surface-variant); }
+.type-sample { min-width: 0; text-wrap: balance; }
+
+/* Componentes */
+.comp { display: flex; flex-direction: column; gap: 16px; }
+.comp-head { display: flex; flex-direction: column; gap: 4px; max-width: 46rem; }
+.stage { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 28px 24px; border-radius: 16px; background: var(--color-container-low); box-shadow: inset 0 0 0 1px var(--doc-line); }
+.stage--col { flex-direction: column; align-items: stretch; }
+.stage--col > * { max-width: 30rem; }
+.stage--dialog { position: relative; padding: 0; min-height: 320px; overflow: hidden; align-items: stretch; }
+.mock-page { display: flex; flex-direction: column; gap: 12px; width: 100%; padding: 24px; }
+.mock-bar { height: 14px; border-radius: 7px; background: var(--color-container-highest); }
+.stage .v-scrim { position: absolute; }
+
+/* Cuidados */
+.care { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 16px; }
+.care-item { display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 16px; background: var(--color-container-lowest); box-shadow: inset 0 0 0 1px var(--doc-line); }
+.care-item p { color: var(--color-on-surface-variant); }
+.oc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.oc { display: grid; place-items: center; min-height: 44px; padding: 0 10px; border-radius: 12px; background: var(--color-container-lowest); color: var(--color-on-surface); text-align: center; }
+.oc-weak { border: 1px solid var(--color-outline); }
+.oc-strong { border: 1px solid var(--color-on-surface-variant); }
+
+.foot { padding-top: 24px; border-top: 1px solid var(--color-outline); color: var(--color-on-surface-variant); }
+
+/* Aviso al copiar */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 20;
+  max-width: calc(100vw - 32px);
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--color-inverse-surface);
+  color: var(--color-inverse-on-surface);
+  box-shadow: var(--shadow-flyout);
+  transform: translate(-50%, 12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  overflow-wrap: anywhere;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ==========================================================================
+   Componentes de ejemplo (el código que se muestra en cada bloque sale de acá)
+   ========================================================================== */
+
+.v-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+.v-btn:hover:not(:disabled) {
+  filter: brightness(0.93);
+}
+.v-btn:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+.v-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+.v-btn--primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+.v-btn--secondary {
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+}
+.v-btn--tonal {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}
+.v-btn--outline {
+  background: transparent;
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+.v-btn--error {
+  background: var(--color-error);
+  color: var(--color-on-error);
+}
+
+.v-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--color-container-high);
+  color: var(--color-on-surface);
+}
+.v-chip--selected {
+  background: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+.v-badge {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--color-tertiary-container);
+  color: var(--color-on-tertiary-container);
+}
+.v-badge--primary {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}
+.v-badge--error {
+  background: var(--color-error-container);
+  color: var(--color-on-error-container);
+}
+
+.v-card {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 320px);
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--color-container-lowest);
+  color: var(--color-on-surface);
+  box-shadow: var(--shadow-card);
+}
+.v-card__media {
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, var(--color-primary-container), var(--color-tertiary-container));
+}
+.v-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+.v-card__meta {
+  color: var(--color-on-surface-variant);
+}
+.v-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 16px 16px;
+}
+
+.v-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: min(100%, 320px);
+}
+.v-field__input {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--color-on-surface-variant);
+  border-radius: 12px;
+  background: var(--color-container-lowest);
+  color: var(--color-on-surface);
+}
+.v-field__input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+  border-color: var(--color-primary);
+}
+.v-field__help {
+  color: var(--color-on-surface-variant);
+}
+.v-field--error .v-field__input {
+  border-color: var(--color-error);
+}
+.v-field--error .v-field__help {
+  color: var(--color-error);
+}
+
+.v-alert {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--color-tertiary-container);
+  color: var(--color-on-tertiary-container);
+}
+.v-alert--error {
+  background: var(--color-error-container);
+  color: var(--color-on-error-container);
+}
+.v-snackbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--color-inverse-surface);
+  color: var(--color-inverse-on-surface);
+  box-shadow: var(--shadow-flyout);
+}
+.v-snackbar__action {
+  padding: 4px 8px;
+  border: 0;
+  background: none;
+  color: var(--color-inverse-primary);
+  cursor: pointer;
+}
+
+.v-scrim {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: color-mix(in srgb, var(--color-on-surface) 42%, transparent);
+}
+.v-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(100%, 360px);
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--color-container-lowest);
+  color: var(--color-on-surface);
+  box-shadow: var(--shadow-flyout);
+}
+.v-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   Pantallas angostas
+   ========================================================================== */
+@media (max-width: 880px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .rail {
+    z-index: 10;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .rail-sub, .rail-copy, .rail-label { display: none; }
+  .rail-brand { flex-shrink: 0; }
+  .rail-nav { flex-direction: row; gap: 4px; }
+  .rail-group { flex-direction: row; }
+  .rail-group a { white-space: nowrap; }
+  .sec { scroll-margin-top: 72px; }
+  .type-row { grid-template-columns: minmax(0, 1fr); }
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-mark { justify-self: start; width: min(100%, 18rem); }
+}
+@media (max-width: 520px) {
+  .step { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .oc-row { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="ventu-logo" viewBox="0 0 440 437"><g fill="none"><path d="M112.927 159.015C112.927 159.015 104.373 42.4701 171.899 27.3965" stroke="currentColor" stroke-width="11.6359" stroke-miterlimit="1.5" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M169.718 33.4634C168.891 30.5467 168.726 27.4829 169.234 24.4945C171.835 8.88602 182.418 3.25502 197.051 2.67859C201.154 2.50475 205.256 3.06098 209.166 4.32091C219.095 7.5802 227.304 13.5567 233.64 22.5454C230.237 31.3764 224.535 38.2509 216.478 43.1195C206.787 48.9537 195.071 50.3881 184.259 47.0639C176.796 44.7488 171.712 40.4171 169.718 33.4634Z" fill="currentColor"/>
+<path d="M257.281 177.216C262.079 180.461 262.078 180.462 262.078 180.463C262.078 180.463 262.077 180.463 262.078 180.463C262.078 180.462 262.079 180.46 262.082 180.456C262.086 180.449 262.094 180.435 262.105 180.417C262.127 180.379 262.162 180.319 262.21 180.237C262.307 180.073 262.456 179.823 262.656 179.493C263.057 178.832 263.661 177.851 264.457 176.606C266.049 174.115 268.404 170.568 271.427 166.4C277.487 158.044 286.16 147.284 296.678 137.518C318.009 117.713 345.147 103.503 373.245 117.539L375.534 112.091L377.824 106.643C343.357 89.426 311.368 107.778 289.212 128.349C277.988 138.771 268.829 150.152 262.492 158.891C259.317 163.269 256.832 167.008 255.135 169.665C254.286 170.994 253.632 172.054 253.186 172.79C252.963 173.158 252.792 173.445 252.675 173.644C252.616 173.743 252.57 173.821 252.538 173.876C252.522 173.903 252.509 173.925 252.5 173.941C252.496 173.949 252.492 173.955 252.489 173.96C252.487 173.963 252.486 173.966 252.485 173.967C252.484 173.969 252.483 173.971 257.281 177.216Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M369.453 122.06C369.309 116.87 371.288 111.845 374.934 108.149C384.255 98.6042 394.272 99.068 404.681 105.236C410.348 108.566 415.189 113.134 418.841 118.6C424.645 127.263 427.689 136.989 427.803 147.839C417.54 154.453 405.889 155.532 392.803 150.889C389.57 149.75 386.584 148.007 384.002 145.752C374.976 138.03 369.644 130.126 369.453 122.06Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.03217 256.136C4.93105 261.551 4.28811 267.05 4.10922 272.573C2.15492 336.397 26.3374 384.78 83.8675 413.46C109.841 426.376 138.482 433.023 167.49 432.87C239.359 432.444 269.474 400.946 293.783 365.543C302.727 352.505 309.34 338.012 313.326 322.712C335.537 237.349 287.169 192.465 222.561 156.891C234.5 157.526 246.489 157.219 258.947 148.102C264.58 144.056 267.147 136.963 265.408 130.249C263.731 123.448 257.947 119.11 244.081 119.686C230.077 119.855 218.826 130.989 207.766 142.879C216.69 123.39 225.588 103.899 226.399 83.5001C226.647 76.1904 223.427 69.1929 217.715 64.6248C209.956 58.2829 202.366 58.943 194.977 65.4139C192.021 67.9931 189.609 71.1353 187.881 74.6573C177.618 95.8935 175.312 118.866 179.969 143.362C153.437 144.567 124.613 148.983 86.8776 165.882C83.8061 167.262 80.799 168.78 77.866 170.433C40.1802 191.698 13.5131 218.823 6.03217 256.136Z" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M184.426 323.407C173.795 345.334 152.489 360.315 127.962 360.315C92.8248 360.315 64.298 329.57 64.298 291.702C64.298 253.833 92.8248 223.089 127.962 223.089C151.104 223.089 171.379 236.425 182.524 256.35C193.155 234.423 214.462 219.443 238.988 219.443C274.126 219.443 302.652 250.187 302.652 288.056C302.652 325.924 274.126 356.669 238.988 356.669C215.846 356.669 195.572 343.332 184.426 323.407Z" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M158.387 277.714C160.158 282.156 161.139 287.048 161.139 292.185C161.139 312.453 145.871 328.907 127.065 328.907C108.259 328.907 92.9916 312.453 92.9916 292.185C92.9916 271.917 108.259 255.463 127.065 255.463C130.689 255.463 134.182 256.074 137.459 257.205C133.116 259.985 130.204 265.091 130.204 270.925C130.204 279.725 136.833 286.87 144.999 286.87C150.912 286.87 156.019 283.123 158.387 277.714Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M268.23 272.882C270 277.324 270.981 282.216 270.981 287.353C270.981 307.621 255.714 324.075 236.908 324.075C218.102 324.075 202.834 307.621 202.834 287.353C202.834 267.085 218.102 250.63 236.908 250.63C240.532 250.63 244.024 251.242 247.302 252.373C242.959 255.153 240.046 260.259 240.046 266.093C240.046 274.893 246.676 282.038 254.841 282.038C260.754 282.038 265.862 278.291 268.23 272.882Z" fill="currentColor"/>
+<path d="M165.622 376.26C165.622 376.26 188.795 405.996 213.146 375.294" stroke="currentColor" stroke-width="11.6359" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/></g></symbol>
+</svg>
+
+<div class="shell">
+  <aside class="rail">
+    <a class="rail-brand" href="#inicio">
+      <span class="rail-name text-headline-md"><svg class="rail-logo" viewBox="0 0 440 437" aria-hidden="true" focusable="false"><use href="#ventu-logo"/></svg>VentuUI</span>
+      <span class="rail-sub text-label-sm">Design tokens · tema Light</span>
+    </a>
+    <nav class="rail-nav" aria-label="Secciones">
+      <div class="rail-group">
+        <span class="rail-label text-label-sm">Empezar</span>
+        <a class="text-label-md" href="#inicio">Inicio</a>
+        <a class="text-label-md" href="#uso">Cómo usarlo</a>
+      </div>
+      <div class="rail-group">
+        <span class="rail-label text-label-sm">Fundamentos</span>
+        <a class="text-label-md" href="#colores">Colores</a>
+        <a class="text-label-md" href="#pares">Pares y contraste</a>
+        <a class="text-label-md" href="#superficies">Superficies</a>
+        <a class="text-label-md" href="#elevacion">Elevación</a>
+        <a class="text-label-md" href="#tipografia">Tipografía</a>
+      </div>
+      <div class="rail-group">
+        <span class="rail-label text-label-sm">Aplicación</span>
+        <a class="text-label-md" href="#componentes">Componentes</a>
+        <a class="text-label-md" href="#cuidados">Cuidados</a>
+      </div>
+    </nav>
+    <button class="rail-copy v-btn v-btn--tonal text-label-md" type="button" data-copy-target="full-css" data-label="ventu-tokens.css">Copiar CSS completo</button>
+  </aside>
+
+  <main class="content">
+
+    <section id="inicio" class="sec" aria-labelledby="t-inicio">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow text-label-sm">Sistema de diseño</p>
+          <h1 id="t-inicio" class="hero-title text-display-lg">Ventu<span>UI</span></h1>
+          <p class="lead text-body-lg">El sistema de diseño de Ventu. Esta página documenta los tokens: colores, tipografía y sombras como variables CSS, con un ejemplo visual de cada uno. Está armada con esos mismos tokens, así que lo que copiás acá es lo que va al código.</p>
+          <p class="hero-facts text-label-mono"><span>47 colores</span><span>14 estilos de texto</span><span>2 sombras</span></p>
+          <div class="hero-cta">
+            <a class="v-btn v-btn--secondary text-label-lg" href="#uso">Empezar</a>
+            <a class="v-btn v-btn--tonal text-label-lg" href="#colores">Ver colores</a>
+          </div>
+        </div>
+        <div class="hero-mark" aria-hidden="true">
+          <div class="hero-disc"><svg class="hero-logo" viewBox="0 0 440 437" focusable="false"><use href="#ventu-logo"/></svg></div>
+        </div>
+      </div>
+      <div class="base">
+        <ul class="base-strip" aria-label="Paleta base">
+          <li class="base-item">
+            <span class="base-chip" style="background:var(--color-secondary)"></span>
+            <span class="base-cap"><span class="text-label-md">Marino</span><code class="text-label-mono muted">#0f2742</code><span class="text-body-sm muted">secondary</span></span>
+          </li>
+          <li class="base-item">
+            <span class="base-chip" style="background:var(--color-tertiary)"></span>
+            <span class="base-cap"><span class="text-label-md">Celeste</span><code class="text-label-mono muted">#5b87a6</code><span class="text-body-sm muted">tertiary</span></span>
+          </li>
+          <li class="base-item">
+            <span class="base-chip" style="background:var(--color-primary)"></span>
+            <span class="base-cap"><span class="text-label-md">Terracota</span><code class="text-label-mono muted">#c26745</code><span class="text-body-sm muted">primary</span></span>
+          </li>
+          <li class="base-item">
+            <span class="base-chip" style="background:var(--color-outline)"></span>
+            <span class="base-cap"><span class="text-label-md">Gris</span><code class="text-label-mono muted">#dad7d0</code><span class="text-body-sm muted">outline</span></span>
+          </li>
+          <li class="base-item">
+            <span class="base-chip" style="background:var(--color-surface)"></span>
+            <span class="base-cap"><span class="text-label-md">Crema</span><code class="text-label-mono muted">#f7f2ea</code><span class="text-body-sm muted">surface</span></span>
+          </li>
+        </ul>
+        <p class="muted text-body-sm">Paleta base. Los 47 tokens de color se derivan de estos cinco.</p>
+      </div>
+    </section>
+
+    <section id="uso" class="sec" aria-labelledby="t-uso">
+      <header class="sec-head">
+        <p class="eyebrow text-label-sm">Empezar</p>
+        <h2 id="t-uso" class="text-headline-lg">Cómo usarlo</h2>
+        <p class="lead">Tres pasos. No hace falta ninguna librería ni un paso de compilación.</p>
+      </header>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-n text-label-lg" aria-hidden="true">1</span>
+          <div class="step-body">
+            <h3 class="text-headline-sm">Incluí el archivo</h3>
+            <p>Cargá <code class="inline">ventu-tokens.css</code> antes del resto de tus estilos. Las variables viven en <code class="inline">:root</code>, así que quedan disponibles en toda la página.</p>
+            <div class="code"><div class="code-bar"><span class="text-label-mono">HTML</span><button class="code-copy text-label-md" type="button" data-copy-target="code-link" data-label="código">Copiar</button></div><pre id="code-link"><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;ventu-tokens.css&quot;&gt;</code></pre></div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n text-label-lg" aria-hidden="true">2</span>
+          <div class="step-body">
+            <h3 class="text-headline-sm">Usá la variable, no el valor</h3>
+            <p>Escribí <code class="inline">var(--color-primary)</code> en lugar de <code class="inline">#c26745</code>. Si un color cambia en el sistema, se actualiza en todos lados.</p>
+            <div class="code"><div class="code-bar"><span class="text-label-mono">CSS</span><button class="code-copy text-label-md" type="button" data-copy-target="code-usage" data-label="código">Copiar</button></div><pre id="code-usage"><code><span class="s">.tarjeta</span> {
+  <span class="p">background</span>: <span class="v">var(--color-container-lowest)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-surface)</span>;
+  <span class="p">border-bottom</span>: 1px solid <span class="v">var(--color-outline)</span>;
+  <span class="p">box-shadow</span>: <span class="v">var(--shadow-card)</span>;
+}</code></pre></div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n text-label-lg" aria-hidden="true">3</span>
+          <div class="step-body">
+            <h3 class="text-headline-sm">Aplicá un estilo de texto</h3>
+            <p>Cada clase <code class="inline">.text-*</code> suma familia, peso, tamaño, interlineado y espaciado de letras de una vez. Son los mismos text styles de Figma.</p>
+            <div class="code"><div class="code-bar"><span class="text-label-mono">HTML</span><button class="code-copy text-label-md" type="button" data-copy-target="code-textclass" data-label="código">Copiar</button></div><pre id="code-textclass"><code>&lt;h2 class=&quot;text-headline-md&quot;&gt;Taller de cerámica&lt;/h2&gt;
+&lt;p class=&quot;text-body-md&quot;&gt;Piezas hechas a mano.&lt;/p&gt;
+&lt;span class=&quot;text-label-mono&quot;&gt;350 m · 09:00–18:00&lt;/span&gt;</code></pre></div>
+          </div>
+        </li>
+      </ol>
+      <div class="sub">
+        <div class="sub-head">
+          <h3 class="text-headline-sm">Si más adelante usás Tailwind</h3>
+          <p class="lead">Los prefijos <code class="inline">--color-*</code>, <code class="inline">--shadow-*</code> y <code class="inline">--font-*</code> coinciden con los que Tailwind v4 lee dentro de <code class="inline">@theme</code>. Moviendo las variables ahí deberías obtener clases como <code class="inline">bg-primary</code> o <code class="inline">text-on-primary</code> sin renombrar nada. Conviene probarlo en el proyecto antes de dar el cambio por hecho.</p>
+        </div>
+        <div class="code"><div class="code-bar"><span class="text-label-mono">CSS · Tailwind v4</span><button class="code-copy text-label-md" type="button" data-copy-target="code-tailwind" data-label="código">Copiar</button></div><pre id="code-tailwind"><code>@import &quot;tailwindcss&quot;;
+
+<span class="s">@theme</span> {
+  <span class="p">--color-primary</span>: #c26745;
+  <span class="p">--color-on-primary</span>: #ffffff;
+  <span class="p">--color-secondary</span>: #0f2742;
+  <span class="p">--shadow-card</span>: 0 2px 8px 0 #2b26200d, 0 1px 2px 0 #2b262014;
+<span class="c">  /* …el resto de las variables de ventu-tokens.css */</span>
+}</code></pre></div>
+      </div>
+      <details class="full">
+        <summary class="text-label-lg">Ver el archivo completo</summary>
+        <div class="code"><div class="code-bar"><span class="text-label-mono">ventu-tokens.css</span><button class="code-copy text-label-md" type="button" data-copy-target="full-css" data-label="código">Copiar</button></div><pre id="full-css"><code><span class="c">/* ==========================================================================</span>
+<span class="c">   Ventu — Design tokens</span>
+<span class="c">   Fuente: Ventu-tokens.json (export de Figma). Solo tema Light.</span>
+<span class="c">   ========================================================================== */</span>
+
+<span class="s">:root</span> {
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Color · surface</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--color-surface</span>: #f7f2ea;
+  <span class="p">--color-surface-dim</span>: #e3dfd9;
+  <span class="p">--color-surface-bright</span>: #f7f2ea;
+  <span class="p">--color-container-lowest</span>: #ffffff;
+  <span class="p">--color-container-low</span>: #fbfaf9;
+  <span class="p">--color-container</span>: #f6f5f3;
+  <span class="p">--color-container-high</span>: #f2f0ed;
+  <span class="p">--color-container-highest</span>: #eeebe8;
+  <span class="p">--color-on-surface</span>: #09192a;
+  <span class="p">--color-on-surface-variant</span>: #584f41;
+  <span class="p">--color-inverse-surface</span>: #133153;
+  <span class="p">--color-inverse-on-surface</span>: #f7f2ea;
+  <span class="p">--color-surface-tint</span>: #c26745;
+  <span class="p">--color-surface-variant</span>: #e8e7e3;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Color · primary (terracota)</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--color-primary</span>: #c26745;
+  <span class="p">--color-on-primary</span>: #ffffff;
+  <span class="p">--color-primary-container</span>: #f2e0d9;
+  <span class="p">--color-on-primary-container</span>: #26140d;
+  <span class="p">--color-inverse-primary</span>: #e6c0b2;
+  <span class="p">--color-primary-fixed</span>: #f2e0d9;
+  <span class="p">--color-primary-fixed-dim</span>: #e6c0b2;
+  <span class="p">--color-on-primary-fixed</span>: #26140d;
+  <span class="p">--color-on-primary-fixed-variant</span>: #733b26;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Color · secondary (azul marino)</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--color-secondary</span>: #0f2742;
+  <span class="p">--color-on-secondary</span>: #ffffff;
+  <span class="p">--color-secondary-container</span>: #d5e5f6;
+  <span class="p">--color-on-secondary-container</span>: #09192a;
+  <span class="p">--color-secondary-fixed</span>: #d5e5f6;
+  <span class="p">--color-secondary-fixed-dim</span>: #accaec;
+  <span class="p">--color-on-secondary-fixed</span>: #09192a;
+  <span class="p">--color-on-secondary-fixed-variant</span>: #1c4a7d;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Color · tertiary (celeste / accent)</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--color-tertiary</span>: #5b87a6;
+  <span class="p">--color-on-tertiary</span>: #ffffff;
+  <span class="p">--color-tertiary-container</span>: #dee7ed;
+  <span class="p">--color-on-tertiary-container</span>: #121b21;
+  <span class="p">--color-tertiary-fixed</span>: #dee7ed;
+  <span class="p">--color-tertiary-fixed-dim</span>: #bdcfdb;
+  <span class="p">--color-on-tertiary-fixed</span>: #121b21;
+  <span class="p">--color-on-tertiary-fixed-variant</span>: #365063;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Color · error</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--color-error</span>: #ba1a1a;
+  <span class="p">--color-on-error</span>: #ffffff;
+  <span class="p">--color-error-container</span>: #ffdad6;
+  <span class="p">--color-on-error-container</span>: #93000a;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Color · outline</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--color-outline</span>: #dad7d0;
+  <span class="p">--color-outline-variant</span>: #f1f0ee;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Color · background</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--color-background</span>: #f7f2ea;
+  <span class="p">--color-on-background</span>: #09192a;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Elevation</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+<span class="c">  /* Sombra sutil para cards y fichas */</span>
+  <span class="p">--shadow-card</span>: 0 2px 8px 0 #2b26200d, 0 1px 2px 0 #2b262014;
+<span class="c">  /* Sombra elevada para modales y diálogos */</span>
+  <span class="p">--shadow-flyout</span>: 0 12px 32px 0 #2b26201f;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Typography · familias</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--font-nunito</span>: &quot;Nunito&quot;, system-ui, sans-serif;
+  <span class="p">--font-jetbrains-mono</span>: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Typography · pesos</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--font-weight-nunito-0</span>: 600; <span class="c">/* SemiBold */</span>
+  <span class="p">--font-weight-nunito-1</span>: 500; <span class="c">/* Medium */</span>
+  <span class="p">--font-weight-nunito-2</span>: 400; <span class="c">/* Regular */</span>
+  <span class="p">--font-weight-jetbrains-mono-3</span>: 500; <span class="c">/* Medium */</span>
+  <span class="p">--font-weight-jetbrains-mono-4</span>: 400; <span class="c">/* Regular */</span>
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Typography · tamaños (px de Figma → rem, base 16px)</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--font-size-0</span>: 0.6875rem; <span class="c">/* 11px */</span>
+  <span class="p">--font-size-1</span>: 0.75rem; <span class="c">/* 12px */</span>
+  <span class="p">--font-size-2</span>: 0.8125rem; <span class="c">/* 13px */</span>
+  <span class="p">--font-size-3</span>: 0.9375rem; <span class="c">/* 15px */</span>
+  <span class="p">--font-size-4</span>: 1.0625rem; <span class="c">/* 17px */</span>
+  <span class="p">--font-size-5</span>: 1.125rem; <span class="c">/* 18px */</span>
+  <span class="p">--font-size-6</span>: 1.375rem; <span class="c">/* 22px */</span>
+  <span class="p">--font-size-7</span>: 1.5rem; <span class="c">/* 24px */</span>
+  <span class="p">--font-size-8</span>: 1.75rem; <span class="c">/* 28px */</span>
+  <span class="p">--font-size-9</span>: 2rem; <span class="c">/* 32px */</span>
+  <span class="p">--font-size-10</span>: 2.75rem; <span class="c">/* 44px */</span>
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Typography · interlineado (% → unitless)</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--line-height-0</span>: 1.15;
+  <span class="p">--line-height-1</span>: 1.2;
+  <span class="p">--line-height-2</span>: 1.25;
+  <span class="p">--line-height-3</span>: 1.25;
+  <span class="p">--line-height-4</span>: 1.3;
+  <span class="p">--line-height-5</span>: 1.35;
+  <span class="p">--line-height-6</span>: 1.6;
+  <span class="p">--line-height-7</span>: 1.55;
+  <span class="p">--line-height-8</span>: 1.5;
+  <span class="p">--line-height-9</span>: 1.3;
+  <span class="p">--line-height-10</span>: 1.3;
+  <span class="p">--line-height-11</span>: 1.3;
+  <span class="p">--line-height-12</span>: 1.3;
+  <span class="p">--line-height-13</span>: 1.5;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Typography · letter-spacing (% del tamaño de fuente → em)</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--letter-spacing-0</span>: -0.02em;
+  <span class="p">--letter-spacing-1</span>: -0.015em;
+  <span class="p">--letter-spacing-2</span>: -0.01em;
+  <span class="p">--letter-spacing-3</span>: 0em;
+  <span class="p">--letter-spacing-4</span>: 0.005em;
+  <span class="p">--letter-spacing-5</span>: 0.01em;
+  <span class="p">--letter-spacing-6</span>: 0.015em;
+  <span class="p">--letter-spacing-7</span>: 0.02em;
+  <span class="p">--letter-spacing-8</span>: 0.03em;
+  <span class="p">--letter-spacing-9</span>: 0.04em;
+
+<span class="c">  /* ------------------------------------------------------------------------</span>
+<span class="c">     Typography · párrafo</span>
+<span class="c">     ------------------------------------------------------------------------ */</span>
+  <span class="p">--paragraph-spacing-0</span>: 0;
+  <span class="p">--paragraph-indent-0</span>: 0px;
+}
+
+<span class="c">/* ==========================================================================</span>
+<span class="c">   Estilos de texto (opcional)</span>
+<span class="c">   Equivalen 1:1 a los text styles de Figma. Aplicalos como clase</span>
+<span class="c">   (ej. &lt;h1 class=&quot;text-display-lg&quot;&gt;) o borrá esta sección si preferís</span>
+<span class="c">   armar tus propios estilos con las variables de arriba.</span>
+<span class="c">   ========================================================================== */</span>
+
+<span class="c">/* Display */</span>
+<span class="s">.text-display-lg</span> {
+<span class="c">  /* Hero sections, brand headers */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-0)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-10)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-0)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-0)</span>;
+}
+
+<span class="s">.text-display-md</span> {
+<span class="c">  /* Section headers, maker titles */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-1)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-9)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-1)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-1)</span>;
+}
+
+<span class="s">.text-display-sm</span> {
+<span class="c">  /* Card titles, subsection headers */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-2)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-7)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-2)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-2)</span>;
+}
+
+<span class="c">/* Headline */</span>
+<span class="s">.text-headline-lg</span> {
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-0)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-8)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-2)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-2)</span>;
+}
+
+<span class="s">.text-headline-md</span> {
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-1)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-6)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-4)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-3)</span>;
+}
+
+<span class="s">.text-headline-sm</span> {
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-2)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-5)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-5)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-3)</span>;
+}
+
+<span class="c">/* Body */</span>
+<span class="s">.text-body-lg</span> {
+<span class="c">  /* Texto de lectura principal, descripciones */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-2)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-4)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-6)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-4)</span>;
+}
+
+<span class="s">.text-body-md</span> {
+<span class="c">  /* Texto secundario, descripciones de UI */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-2)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-3)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-7)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-5)</span>;
+}
+
+<span class="s">.text-body-sm</span> {
+<span class="c">  /* Captions, footnotes */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-2)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-2)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-8)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-6)</span>;
+}
+
+<span class="c">/* Label */</span>
+<span class="s">.text-label-lg</span> {
+<span class="c">  /* Botones primarios, labels prominentes */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-0)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-3)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-4)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-7)</span>;
+}
+
+<span class="s">.text-label-md</span> {
+<span class="c">  /* Botones, chips, items de navegación */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-1)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-2)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-4)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-8)</span>;
+}
+
+<span class="s">.text-label-sm</span> {
+<span class="c">  /* Badges, micro-texto */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-nunito)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-nunito-1)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-0)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-4)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-9)</span>;
+}
+
+<span class="c">/* Mono */</span>
+<span class="s">.text-label-mono</span> {
+<span class="c">  /* Distancias, horarios, precios, códigos postales */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-jetbrains-mono)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-jetbrains-mono-3)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-1)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-4)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-9)</span>;
+}
+
+<span class="s">.text-body-mono</span> {
+<span class="c">  /* Datos numéricos, bloques de metadata */</span>
+  <span class="p">font-family</span>: <span class="v">var(--font-jetbrains-mono)</span>;
+  <span class="p">font-weight</span>: <span class="v">var(--font-weight-jetbrains-mono-4)</span>;
+  <span class="p">font-size</span>: <span class="v">var(--font-size-2)</span>;
+  <span class="p">line-height</span>: <span class="v">var(--line-height-8)</span>;
+  <span class="p">letter-spacing</span>: <span class="v">var(--letter-spacing-7)</span>;
+}
+</code></pre></div>
+      </details>
+    </section>
+
+    <section id="colores" class="sec" aria-labelledby="t-colores">
+      <header class="sec-head">
+        <p class="eyebrow text-label-sm">Fundamentos</p>
+        <h2 id="t-colores" class="text-headline-lg">Colores</h2>
+        <p class="lead">Siete grupos de roles. Hacé click en cualquier color para copiar su variable.</p>
+      </header>
+      <div class="sub">
+        <div class="sub-head"><h3 class="text-headline-sm">Cómo leer los nombres</h3></div>
+        <div class="names">
+          <div class="name-card"><code class="text-label-mono">primary</code><p class="text-body-sm">El color del rol. Se usa de fondo en acciones y elementos principales.</p></div>
+          <div class="name-card"><code class="text-label-mono">on-primary</code><p class="text-body-sm">Texto e íconos que van encima del color del rol.</p></div>
+          <div class="name-card"><code class="text-label-mono">primary-container</code><p class="text-body-sm">Versión suave para fondos de chips, banners y botones tonales.</p></div>
+          <div class="name-card"><code class="text-label-mono">on-primary-container</code><p class="text-body-sm">Texto e íconos sobre el container.</p></div>
+          <div class="name-card"><code class="text-label-mono">primary-fixed</code><p class="text-body-sm">Valores pensados para no cambiar entre temas. Incluye <code class="text-label-mono">-dim</code> y <code class="text-label-mono">on-…-variant</code>.</p></div>
+          <div class="name-card"><code class="text-label-mono">inverse-*</code><p class="text-body-sm">Superficies invertidas, como snackbars y este riel lateral.</p></div>
+        </div>
+      </div>
+      <div class="group"><div class="group-head"><h3 class="text-headline-md">surface</h3><p class="lead text-body-md">Fondos de pantallas y contenedores, y el texto que va encima. <span class="muted">14 tokens.</span></p></div><div class="swatches"><button class="swatch" type="button" data-copy="var(--color-surface)" data-label="var(--color-surface)" aria-label="Copiar var(--color-surface), #f7f2ea"><span class="swatch-chip" style="background:var(--color-surface)"></span><span class="swatch-name text-label-mono">surface</span><span class="swatch-hex text-body-mono">#f7f2ea</span></button><button class="swatch" type="button" data-copy="var(--color-surface-dim)" data-label="var(--color-surface-dim)" aria-label="Copiar var(--color-surface-dim), #e3dfd9"><span class="swatch-chip" style="background:var(--color-surface-dim)"></span><span class="swatch-name text-label-mono">surface-dim</span><span class="swatch-hex text-body-mono">#e3dfd9</span></button><button class="swatch" type="button" data-copy="var(--color-surface-bright)" data-label="var(--color-surface-bright)" aria-label="Copiar var(--color-surface-bright), #f7f2ea"><span class="swatch-chip" style="background:var(--color-surface-bright)"></span><span class="swatch-name text-label-mono">surface-bright</span><span class="swatch-hex text-body-mono">#f7f2ea</span></button><button class="swatch" type="button" data-copy="var(--color-container-lowest)" data-label="var(--color-container-lowest)" aria-label="Copiar var(--color-container-lowest), #ffffff"><span class="swatch-chip" style="background:var(--color-container-lowest)"></span><span class="swatch-name text-label-mono">container-lowest</span><span class="swatch-hex text-body-mono">#ffffff</span></button><button class="swatch" type="button" data-copy="var(--color-container-low)" data-label="var(--color-container-low)" aria-label="Copiar var(--color-container-low), #fbfaf9"><span class="swatch-chip" style="background:var(--color-container-low)"></span><span class="swatch-name text-label-mono">container-low</span><span class="swatch-hex text-body-mono">#fbfaf9</span></button><button class="swatch" type="button" data-copy="var(--color-container)" data-label="var(--color-container)" aria-label="Copiar var(--color-container), #f6f5f3"><span class="swatch-chip" style="background:var(--color-container)"></span><span class="swatch-name text-label-mono">container</span><span class="swatch-hex text-body-mono">#f6f5f3</span></button><button class="swatch" type="button" data-copy="var(--color-container-high)" data-label="var(--color-container-high)" aria-label="Copiar var(--color-container-high), #f2f0ed"><span class="swatch-chip" style="background:var(--color-container-high)"></span><span class="swatch-name text-label-mono">container-high</span><span class="swatch-hex text-body-mono">#f2f0ed</span></button><button class="swatch" type="button" data-copy="var(--color-container-highest)" data-label="var(--color-container-highest)" aria-label="Copiar var(--color-container-highest), #eeebe8"><span class="swatch-chip" style="background:var(--color-container-highest)"></span><span class="swatch-name text-label-mono">container-highest</span><span class="swatch-hex text-body-mono">#eeebe8</span></button><button class="swatch" type="button" data-copy="var(--color-on-surface)" data-label="var(--color-on-surface)" aria-label="Copiar var(--color-on-surface), #09192a"><span class="swatch-chip" style="background:var(--color-on-surface)"></span><span class="swatch-name text-label-mono">on-surface</span><span class="swatch-hex text-body-mono">#09192a</span></button><button class="swatch" type="button" data-copy="var(--color-on-surface-variant)" data-label="var(--color-on-surface-variant)" aria-label="Copiar var(--color-on-surface-variant), #584f41"><span class="swatch-chip" style="background:var(--color-on-surface-variant)"></span><span class="swatch-name text-label-mono">on-surface-variant</span><span class="swatch-hex text-body-mono">#584f41</span></button><button class="swatch" type="button" data-copy="var(--color-inverse-surface)" data-label="var(--color-inverse-surface)" aria-label="Copiar var(--color-inverse-surface), #133153"><span class="swatch-chip" style="background:var(--color-inverse-surface)"></span><span class="swatch-name text-label-mono">inverse-surface</span><span class="swatch-hex text-body-mono">#133153</span></button><button class="swatch" type="button" data-copy="var(--color-inverse-on-surface)" data-label="var(--color-inverse-on-surface)" aria-label="Copiar var(--color-inverse-on-surface), #f7f2ea"><span class="swatch-chip" style="background:var(--color-inverse-on-surface)"></span><span class="swatch-name text-label-mono">inverse-on-surface</span><span class="swatch-hex text-body-mono">#f7f2ea</span></button><button class="swatch" type="button" data-copy="var(--color-surface-tint)" data-label="var(--color-surface-tint)" aria-label="Copiar var(--color-surface-tint), #c26745"><span class="swatch-chip" style="background:var(--color-surface-tint)"></span><span class="swatch-name text-label-mono">surface-tint</span><span class="swatch-hex text-body-mono">#c26745</span></button><button class="swatch" type="button" data-copy="var(--color-surface-variant)" data-label="var(--color-surface-variant)" aria-label="Copiar var(--color-surface-variant), #e8e7e3"><span class="swatch-chip" style="background:var(--color-surface-variant)"></span><span class="swatch-name text-label-mono">surface-variant</span><span class="swatch-hex text-body-mono">#e8e7e3</span></button></div></div><div class="group"><div class="group-head"><h3 class="text-headline-md">primary</h3><p class="lead text-body-md">Terracota. Acciones principales: botones, links y estados activos. <span class="muted">9 tokens.</span></p></div><div class="swatches"><button class="swatch" type="button" data-copy="var(--color-primary)" data-label="var(--color-primary)" aria-label="Copiar var(--color-primary), #c26745"><span class="swatch-chip" style="background:var(--color-primary)"></span><span class="swatch-name text-label-mono">primary</span><span class="swatch-hex text-body-mono">#c26745</span></button><button class="swatch" type="button" data-copy="var(--color-on-primary)" data-label="var(--color-on-primary)" aria-label="Copiar var(--color-on-primary), #ffffff"><span class="swatch-chip" style="background:var(--color-on-primary)"></span><span class="swatch-name text-label-mono">on-primary</span><span class="swatch-hex text-body-mono">#ffffff</span></button><button class="swatch" type="button" data-copy="var(--color-primary-container)" data-label="var(--color-primary-container)" aria-label="Copiar var(--color-primary-container), #f2e0d9"><span class="swatch-chip" style="background:var(--color-primary-container)"></span><span class="swatch-name text-label-mono">primary-container</span><span class="swatch-hex text-body-mono">#f2e0d9</span></button><button class="swatch" type="button" data-copy="var(--color-on-primary-container)" data-label="var(--color-on-primary-container)" aria-label="Copiar var(--color-on-primary-container), #26140d"><span class="swatch-chip" style="background:var(--color-on-primary-container)"></span><span class="swatch-name text-label-mono">on-primary-container</span><span class="swatch-hex text-body-mono">#26140d</span></button><button class="swatch" type="button" data-copy="var(--color-inverse-primary)" data-label="var(--color-inverse-primary)" aria-label="Copiar var(--color-inverse-primary), #e6c0b2"><span class="swatch-chip" style="background:var(--color-inverse-primary)"></span><span class="swatch-name text-label-mono">inverse-primary</span><span class="swatch-hex text-body-mono">#e6c0b2</span></button><button class="swatch" type="button" data-copy="var(--color-primary-fixed)" data-label="var(--color-primary-fixed)" aria-label="Copiar var(--color-primary-fixed), #f2e0d9"><span class="swatch-chip" style="background:var(--color-primary-fixed)"></span><span class="swatch-name text-label-mono">primary-fixed</span><span class="swatch-hex text-body-mono">#f2e0d9</span></button><button class="swatch" type="button" data-copy="var(--color-primary-fixed-dim)" data-label="var(--color-primary-fixed-dim)" aria-label="Copiar var(--color-primary-fixed-dim), #e6c0b2"><span class="swatch-chip" style="background:var(--color-primary-fixed-dim)"></span><span class="swatch-name text-label-mono">primary-fixed-dim</span><span class="swatch-hex text-body-mono">#e6c0b2</span></button><button class="swatch" type="button" data-copy="var(--color-on-primary-fixed)" data-label="var(--color-on-primary-fixed)" aria-label="Copiar var(--color-on-primary-fixed), #26140d"><span class="swatch-chip" style="background:var(--color-on-primary-fixed)"></span><span class="swatch-name text-label-mono">on-primary-fixed</span><span class="swatch-hex text-body-mono">#26140d</span></button><button class="swatch" type="button" data-copy="var(--color-on-primary-fixed-variant)" data-label="var(--color-on-primary-fixed-variant)" aria-label="Copiar var(--color-on-primary-fixed-variant), #733b26"><span class="swatch-chip" style="background:var(--color-on-primary-fixed-variant)"></span><span class="swatch-name text-label-mono">on-primary-fixed-variant</span><span class="swatch-hex text-body-mono">#733b26</span></button></div></div><div class="group"><div class="group-head"><h3 class="text-headline-md">secondary</h3><p class="lead text-body-md">Azul marino. Acciones secundarias, navegación y texto de peso. <span class="muted">8 tokens.</span></p></div><div class="swatches"><button class="swatch" type="button" data-copy="var(--color-secondary)" data-label="var(--color-secondary)" aria-label="Copiar var(--color-secondary), #0f2742"><span class="swatch-chip" style="background:var(--color-secondary)"></span><span class="swatch-name text-label-mono">secondary</span><span class="swatch-hex text-body-mono">#0f2742</span></button><button class="swatch" type="button" data-copy="var(--color-on-secondary)" data-label="var(--color-on-secondary)" aria-label="Copiar var(--color-on-secondary), #ffffff"><span class="swatch-chip" style="background:var(--color-on-secondary)"></span><span class="swatch-name text-label-mono">on-secondary</span><span class="swatch-hex text-body-mono">#ffffff</span></button><button class="swatch" type="button" data-copy="var(--color-secondary-container)" data-label="var(--color-secondary-container)" aria-label="Copiar var(--color-secondary-container), #d5e5f6"><span class="swatch-chip" style="background:var(--color-secondary-container)"></span><span class="swatch-name text-label-mono">secondary-container</span><span class="swatch-hex text-body-mono">#d5e5f6</span></button><button class="swatch" type="button" data-copy="var(--color-on-secondary-container)" data-label="var(--color-on-secondary-container)" aria-label="Copiar var(--color-on-secondary-container), #09192a"><span class="swatch-chip" style="background:var(--color-on-secondary-container)"></span><span class="swatch-name text-label-mono">on-secondary-container</span><span class="swatch-hex text-body-mono">#09192a</span></button><button class="swatch" type="button" data-copy="var(--color-secondary-fixed)" data-label="var(--color-secondary-fixed)" aria-label="Copiar var(--color-secondary-fixed), #d5e5f6"><span class="swatch-chip" style="background:var(--color-secondary-fixed)"></span><span class="swatch-name text-label-mono">secondary-fixed</span><span class="swatch-hex text-body-mono">#d5e5f6</span></button><button class="swatch" type="button" data-copy="var(--color-secondary-fixed-dim)" data-label="var(--color-secondary-fixed-dim)" aria-label="Copiar var(--color-secondary-fixed-dim), #accaec"><span class="swatch-chip" style="background:var(--color-secondary-fixed-dim)"></span><span class="swatch-name text-label-mono">secondary-fixed-dim</span><span class="swatch-hex text-body-mono">#accaec</span></button><button class="swatch" type="button" data-copy="var(--color-on-secondary-fixed)" data-label="var(--color-on-secondary-fixed)" aria-label="Copiar var(--color-on-secondary-fixed), #09192a"><span class="swatch-chip" style="background:var(--color-on-secondary-fixed)"></span><span class="swatch-name text-label-mono">on-secondary-fixed</span><span class="swatch-hex text-body-mono">#09192a</span></button><button class="swatch" type="button" data-copy="var(--color-on-secondary-fixed-variant)" data-label="var(--color-on-secondary-fixed-variant)" aria-label="Copiar var(--color-on-secondary-fixed-variant), #1c4a7d"><span class="swatch-chip" style="background:var(--color-on-secondary-fixed-variant)"></span><span class="swatch-name text-label-mono">on-secondary-fixed-variant</span><span class="swatch-hex text-body-mono">#1c4a7d</span></button></div></div><div class="group"><div class="group-head"><h3 class="text-headline-md">tertiary</h3><p class="lead text-body-md">Celeste. Acento para información y detalles de apoyo. <span class="muted">8 tokens.</span></p></div><div class="swatches"><button class="swatch" type="button" data-copy="var(--color-tertiary)" data-label="var(--color-tertiary)" aria-label="Copiar var(--color-tertiary), #5b87a6"><span class="swatch-chip" style="background:var(--color-tertiary)"></span><span class="swatch-name text-label-mono">tertiary</span><span class="swatch-hex text-body-mono">#5b87a6</span></button><button class="swatch" type="button" data-copy="var(--color-on-tertiary)" data-label="var(--color-on-tertiary)" aria-label="Copiar var(--color-on-tertiary), #ffffff"><span class="swatch-chip" style="background:var(--color-on-tertiary)"></span><span class="swatch-name text-label-mono">on-tertiary</span><span class="swatch-hex text-body-mono">#ffffff</span></button><button class="swatch" type="button" data-copy="var(--color-tertiary-container)" data-label="var(--color-tertiary-container)" aria-label="Copiar var(--color-tertiary-container), #dee7ed"><span class="swatch-chip" style="background:var(--color-tertiary-container)"></span><span class="swatch-name text-label-mono">tertiary-container</span><span class="swatch-hex text-body-mono">#dee7ed</span></button><button class="swatch" type="button" data-copy="var(--color-on-tertiary-container)" data-label="var(--color-on-tertiary-container)" aria-label="Copiar var(--color-on-tertiary-container), #121b21"><span class="swatch-chip" style="background:var(--color-on-tertiary-container)"></span><span class="swatch-name text-label-mono">on-tertiary-container</span><span class="swatch-hex text-body-mono">#121b21</span></button><button class="swatch" type="button" data-copy="var(--color-tertiary-fixed)" data-label="var(--color-tertiary-fixed)" aria-label="Copiar var(--color-tertiary-fixed), #dee7ed"><span class="swatch-chip" style="background:var(--color-tertiary-fixed)"></span><span class="swatch-name text-label-mono">tertiary-fixed</span><span class="swatch-hex text-body-mono">#dee7ed</span></button><button class="swatch" type="button" data-copy="var(--color-tertiary-fixed-dim)" data-label="var(--color-tertiary-fixed-dim)" aria-label="Copiar var(--color-tertiary-fixed-dim), #bdcfdb"><span class="swatch-chip" style="background:var(--color-tertiary-fixed-dim)"></span><span class="swatch-name text-label-mono">tertiary-fixed-dim</span><span class="swatch-hex text-body-mono">#bdcfdb</span></button><button class="swatch" type="button" data-copy="var(--color-on-tertiary-fixed)" data-label="var(--color-on-tertiary-fixed)" aria-label="Copiar var(--color-on-tertiary-fixed), #121b21"><span class="swatch-chip" style="background:var(--color-on-tertiary-fixed)"></span><span class="swatch-name text-label-mono">on-tertiary-fixed</span><span class="swatch-hex text-body-mono">#121b21</span></button><button class="swatch" type="button" data-copy="var(--color-on-tertiary-fixed-variant)" data-label="var(--color-on-tertiary-fixed-variant)" aria-label="Copiar var(--color-on-tertiary-fixed-variant), #365063"><span class="swatch-chip" style="background:var(--color-on-tertiary-fixed-variant)"></span><span class="swatch-name text-label-mono">on-tertiary-fixed-variant</span><span class="swatch-hex text-body-mono">#365063</span></button></div></div><div class="group"><div class="group-head"><h3 class="text-headline-md">error</h3><p class="lead text-body-md">Errores y acciones destructivas. No depende de la marca. <span class="muted">4 tokens.</span></p></div><div class="swatches"><button class="swatch" type="button" data-copy="var(--color-error)" data-label="var(--color-error)" aria-label="Copiar var(--color-error), #ba1a1a"><span class="swatch-chip" style="background:var(--color-error)"></span><span class="swatch-name text-label-mono">error</span><span class="swatch-hex text-body-mono">#ba1a1a</span></button><button class="swatch" type="button" data-copy="var(--color-on-error)" data-label="var(--color-on-error)" aria-label="Copiar var(--color-on-error), #ffffff"><span class="swatch-chip" style="background:var(--color-on-error)"></span><span class="swatch-name text-label-mono">on-error</span><span class="swatch-hex text-body-mono">#ffffff</span></button><button class="swatch" type="button" data-copy="var(--color-error-container)" data-label="var(--color-error-container)" aria-label="Copiar var(--color-error-container), #ffdad6"><span class="swatch-chip" style="background:var(--color-error-container)"></span><span class="swatch-name text-label-mono">error-container</span><span class="swatch-hex text-body-mono">#ffdad6</span></button><button class="swatch" type="button" data-copy="var(--color-on-error-container)" data-label="var(--color-on-error-container)" aria-label="Copiar var(--color-on-error-container), #93000a"><span class="swatch-chip" style="background:var(--color-on-error-container)"></span><span class="swatch-name text-label-mono">on-error-container</span><span class="swatch-hex text-body-mono">#93000a</span></button></div></div><div class="group"><div class="group-head"><h3 class="text-headline-md">outline</h3><p class="lead text-body-md">Bordes y divisores. <span class="muted">2 tokens.</span></p></div><div class="swatches"><button class="swatch" type="button" data-copy="var(--color-outline)" data-label="var(--color-outline)" aria-label="Copiar var(--color-outline), #dad7d0"><span class="swatch-chip" style="background:var(--color-outline)"></span><span class="swatch-name text-label-mono">outline</span><span class="swatch-hex text-body-mono">#dad7d0</span></button><button class="swatch" type="button" data-copy="var(--color-outline-variant)" data-label="var(--color-outline-variant)" aria-label="Copiar var(--color-outline-variant), #f1f0ee"><span class="swatch-chip" style="background:var(--color-outline-variant)"></span><span class="swatch-name text-label-mono">outline-variant</span><span class="swatch-hex text-body-mono">#f1f0ee</span></button></div></div><div class="group"><div class="group-head"><h3 class="text-headline-md">background</h3><p class="lead text-body-md">Fondo general de la app y su texto. <span class="muted">2 tokens.</span></p></div><div class="swatches"><button class="swatch" type="button" data-copy="var(--color-background)" data-label="var(--color-background)" aria-label="Copiar var(--color-background), #f7f2ea"><span class="swatch-chip" style="background:var(--color-background)"></span><span class="swatch-name text-label-mono">background</span><span class="swatch-hex text-body-mono">#f7f2ea</span></button><button class="swatch" type="button" data-copy="var(--color-on-background)" data-label="var(--color-on-background)" aria-label="Copiar var(--color-on-background), #09192a"><span class="swatch-chip" style="background:var(--color-on-background)"></span><span class="swatch-name text-label-mono">on-background</span><span class="swatch-hex text-body-mono">#09192a</span></button></div></div>
+    </section>
+
+    <section id="pares" class="sec" aria-labelledby="t-pares">
+      <header class="sec-head">
+        <p class="eyebrow text-label-sm">Fundamentos</p>
+        <h2 id="t-pares" class="text-headline-lg">Pares y contraste</h2>
+        <p class="lead">Poné siempre el color <code class="inline">on-*</code> sobre su fondo. Los ratios se calcularon con la fórmula de contraste de WCAG 2.1. El texto normal necesita 4.5:1 y el texto grande (desde 24px, o 18.7px en negrita) necesita 3:1.</p>
+      </header>
+      <div class="pairs">
+        <article class="pair"><div class="pair-demo" style="background:var(--color-surface);color:var(--color-on-surface)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: surface</span><span>texto: on-surface</span></div><div class="pair-score"><span class="text-label-lg">15.91:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-surface);color:var(--color-on-surface-variant)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: surface</span><span>texto: on-surface-variant</span></div><div class="pair-score"><span class="text-label-lg">7.22:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-background);color:var(--color-on-background)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: background</span><span>texto: on-background</span></div><div class="pair-score"><span class="text-label-lg">15.91:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-inverse-surface);color:var(--color-inverse-on-surface)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: inverse-surface</span><span>texto: inverse-on-surface</span></div><div class="pair-score"><span class="text-label-lg">11.84:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-inverse-surface);color:var(--color-inverse-primary)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: inverse-surface</span><span>texto: inverse-primary</span></div><div class="pair-score"><span class="text-label-lg">7.88:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-primary);color:var(--color-on-primary)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: primary</span><span>texto: on-primary</span></div><div class="pair-score"><span class="text-label-lg">3.95:1</span><span class="lvl lvl-large text-label-sm">Solo texto grande</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-primary-container);color:var(--color-on-primary-container)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: primary-container</span><span>texto: on-primary-container</span></div><div class="pair-score"><span class="text-label-lg">13.83:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-primary-fixed);color:var(--color-on-primary-fixed)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: primary-fixed</span><span>texto: on-primary-fixed</span></div><div class="pair-score"><span class="text-label-lg">13.83:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-primary-fixed);color:var(--color-on-primary-fixed-variant)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: primary-fixed</span><span>texto: on-primary-fixed-variant</span></div><div class="pair-score"><span class="text-label-lg">6.90:1</span><span class="lvl lvl-aa text-label-sm">AA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-secondary);color:var(--color-on-secondary)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: secondary</span><span>texto: on-secondary</span></div><div class="pair-score"><span class="text-label-lg">15.12:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-secondary-container);color:var(--color-on-secondary-container)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: secondary-container</span><span>texto: on-secondary-container</span></div><div class="pair-score"><span class="text-label-lg">13.82:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-secondary-fixed);color:var(--color-on-secondary-fixed)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: secondary-fixed</span><span>texto: on-secondary-fixed</span></div><div class="pair-score"><span class="text-label-lg">13.82:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-secondary-fixed);color:var(--color-on-secondary-fixed-variant)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: secondary-fixed</span><span>texto: on-secondary-fixed-variant</span></div><div class="pair-score"><span class="text-label-lg">7.04:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-tertiary);color:var(--color-on-tertiary)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: tertiary</span><span>texto: on-tertiary</span></div><div class="pair-score"><span class="text-label-lg">3.85:1</span><span class="lvl lvl-large text-label-sm">Solo texto grande</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-tertiary-container);color:var(--color-on-tertiary-container)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: tertiary-container</span><span>texto: on-tertiary-container</span></div><div class="pair-score"><span class="text-label-lg">13.91:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-tertiary-fixed);color:var(--color-on-tertiary-fixed)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: tertiary-fixed</span><span>texto: on-tertiary-fixed</span></div><div class="pair-score"><span class="text-label-lg">13.91:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-tertiary-fixed);color:var(--color-on-tertiary-fixed-variant)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: tertiary-fixed</span><span>texto: on-tertiary-fixed-variant</span></div><div class="pair-score"><span class="text-label-lg">6.75:1</span><span class="lvl lvl-aa text-label-sm">AA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-error);color:var(--color-on-error)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: error</span><span>texto: on-error</span></div><div class="pair-score"><span class="text-label-lg">6.46:1</span><span class="lvl lvl-aa text-label-sm">AA</span></div></div></article><article class="pair"><div class="pair-demo" style="background:var(--color-error-container);color:var(--color-on-error-container)"><span class="text-display-sm">Aa</span><span class="text-label-lg">Texto de ejemplo</span></div><div class="pair-meta"><div class="pair-vars text-label-mono"><span>fondo: error-container</span><span>texto: on-error-container</span></div><div class="pair-score"><span class="text-label-lg">7.24:1</span><span class="lvl lvl-aaa text-label-sm">AAA</span></div></div></article>
+      </div>
+    </section>
+
+    <section id="superficies" class="sec" aria-labelledby="t-superficies">
+      <header class="sec-head">
+        <p class="eyebrow text-label-sm">Fundamentos</p>
+        <h2 id="t-superficies" class="text-headline-lg">Superficies</h2>
+        <p class="lead">Los niveles <code class="inline">container-*</code> marcan jerarquía sin necesidad de sombras. Cuanto más alto el nivel, más oscuro el fondo.</p>
+      </header>
+      <div class="sub">
+        <div class="sub-head"><h3 class="text-headline-sm">Escala de containers</h3></div>
+        <div class="surfaces">
+          <div class="surf" style="background:var(--color-container-lowest)"><span class="text-label-mono">container-lowest</span><span class="surf-hex text-body-mono">#ffffff</span></div><div class="surf" style="background:var(--color-container-low)"><span class="text-label-mono">container-low</span><span class="surf-hex text-body-mono">#fbfaf9</span></div><div class="surf" style="background:var(--color-container)"><span class="text-label-mono">container</span><span class="surf-hex text-body-mono">#f6f5f3</span></div><div class="surf" style="background:var(--color-container-high)"><span class="text-label-mono">container-high</span><span class="surf-hex text-body-mono">#f2f0ed</span></div><div class="surf" style="background:var(--color-container-highest)"><span class="text-label-mono">container-highest</span><span class="surf-hex text-body-mono">#eeebe8</span></div>
+        </div>
+      </div>
+      <div class="sub">
+        <div class="sub-head"><h3 class="text-headline-sm">Bases</h3><p class="lead">Fondos generales de pantalla.</p></div>
+        <div class="surfaces">
+          <div class="surf" style="background:var(--color-surface)"><span class="text-label-mono">surface</span><span class="surf-hex text-body-mono">#f7f2ea</span></div><div class="surf" style="background:var(--color-surface-bright)"><span class="text-label-mono">surface-bright</span><span class="surf-hex text-body-mono">#f7f2ea</span></div><div class="surf" style="background:var(--color-surface-dim)"><span class="text-label-mono">surface-dim</span><span class="surf-hex text-body-mono">#e3dfd9</span></div><div class="surf" style="background:var(--color-surface-variant)"><span class="text-label-mono">surface-variant</span><span class="surf-hex text-body-mono">#e8e7e3</span></div><div class="surf" style="background:var(--color-background)"><span class="text-label-mono">background</span><span class="surf-hex text-body-mono">#f7f2ea</span></div>
+        </div>
+      </div>
+      <div class="sub">
+        <div class="sub-head"><h3 class="text-headline-sm">Anidar superficies</h3><p class="lead">Una card clara sobre el fondo y un campo un nivel más oscuro adentro. Cada capa se distingue sin borde ni sombra.</p></div>
+        <div class="nest-demo">
+          <div class="nest nest-1 text-label-mono"><span>surface</span>
+            <div class="nest nest-2 text-label-mono"><span>container-lowest</span>
+              <div class="nest nest-3 text-label-mono"><span>container-high</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="elevacion" class="sec" aria-labelledby="t-elevacion">
+      <header class="sec-head">
+        <p class="eyebrow text-label-sm">Fundamentos</p>
+        <h2 id="t-elevacion" class="text-headline-lg">Elevación</h2>
+        <p class="lead">Dos sombras. La de card es sutil y sirve para elementos que viven en la página. La de flyout se reserva para lo que flota encima de todo.</p>
+      </header>
+      <div class="elev">
+        <div class="elev-item">
+          <div class="elev-stage"><div class="elev-box" style="box-shadow:var(--shadow-card)"><span class="text-headline-sm">Card</span><span class="text-body-sm muted">Cards y fichas</span></div></div>
+          <div class="elev-meta"><code class="text-label-mono">--shadow-card</code><code class="text-body-mono">0 2px 8px 0 #2b26200d, 0 1px 2px 0 #2b262014</code></div>
+        </div>
+        <div class="elev-item">
+          <div class="elev-stage"><div class="elev-box" style="box-shadow:var(--shadow-flyout)"><span class="text-headline-sm">Flyout</span><span class="text-body-sm muted">Modales y diálogos</span></div></div>
+          <div class="elev-meta"><code class="text-label-mono">--shadow-flyout</code><code class="text-body-mono">0 12px 32px 0 #2b26201f</code></div>
+        </div>
+      </div>
+      <div class="code"><div class="code-bar"><span class="text-label-mono">CSS</span><button class="code-copy text-label-md" type="button" data-copy-target="code-shadow" data-label="código">Copiar</button></div><pre id="code-shadow"><code><span class="s">.ficha</span> {
+  <span class="p">box-shadow</span>: <span class="v">var(--shadow-card)</span>;
+}
+
+<span class="s">.dialogo</span> {
+  <span class="p">box-shadow</span>: <span class="v">var(--shadow-flyout)</span>;
+}</code></pre></div>
+    </section>
+
+    <section id="tipografia" class="sec" aria-labelledby="t-tipografia">
+      <header class="sec-head">
+        <p class="eyebrow text-label-sm">Fundamentos</p>
+        <h2 id="t-tipografia" class="text-headline-lg">Tipografía</h2>
+        <p class="lead">Nunito para la interfaz y JetBrains Mono para datos como distancias, horarios y precios. Catorce estilos en cinco familias de uso.</p>
+      </header>
+      <div class="families">
+        <div class="family">
+          <code class="text-label-mono">--font-nunito</code>
+          <p class="family-glyphs" style="font-family:var(--font-nunito);font-weight:var(--font-weight-nunito-1)">Aa Bb Cc 123</p>
+          <p class="family-weights text-body-sm"><span>Regular 400</span><span>Medium 500</span><span>SemiBold 600</span></p>
+        </div>
+        <div class="family">
+          <code class="text-label-mono">--font-jetbrains-mono</code>
+          <p class="family-glyphs" style="font-family:var(--font-jetbrains-mono);font-weight:var(--font-weight-jetbrains-mono-3)">Aa Bb 0123</p>
+          <p class="family-weights text-body-sm"><span>Regular 400</span><span>Medium 500</span></p>
+        </div>
+      </div>
+      <div class="type-list">
+        <div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-display-lg</code><span class="text-body-sm">Nunito SemiBold</span><span class="text-body-mono">44px · 115% · −2%</span><span class="use text-body-sm">Titulares de hero y encabezados de marca</span></div><p class="type-sample text-display-lg">Descubrí lo que se hace cerca</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-display-md</code><span class="text-body-sm">Nunito Medium</span><span class="text-body-mono">32px · 120% · −1.5%</span><span class="use text-body-sm">Encabezados de sección y títulos de maker</span></div><p class="type-sample text-display-md">Makers de tu zona</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-display-sm</code><span class="text-body-sm">Nunito Regular</span><span class="text-body-mono">24px · 125% · −1%</span><span class="use text-body-sm">Títulos de cards y subsecciones</span></div><p class="type-sample text-display-sm">Taller de cerámica</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-headline-lg</code><span class="text-body-sm">Nunito SemiBold</span><span class="text-body-mono">28px · 125% · −1%</span><span class="use text-body-sm">Titular grande</span></div><p class="type-sample text-headline-lg">Novedades de la semana</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-headline-md</code><span class="text-body-sm">Nunito Medium</span><span class="text-body-mono">22px · 130% · 0%</span><span class="use text-body-sm">Titular mediano</span></div><p class="type-sample text-headline-md">Abiertos ahora</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-headline-sm</code><span class="text-body-sm">Nunito Regular</span><span class="text-body-mono">18px · 135% · 0%</span><span class="use text-body-sm">Titular chico</span></div><p class="type-sample text-headline-sm">Lo más pedido este mes</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-body-lg</code><span class="text-body-sm">Nunito Regular</span><span class="text-body-mono">17px · 160% · 0.5%</span><span class="use text-body-sm">Texto de lectura principal y descripciones</span></div><p class="type-sample text-body-lg">Cuando alguien abre una ficha, lo primero que lee es esta descripción. Mantené cada línea cerca de 65 caracteres para que se lea cómoda.</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-body-md</code><span class="text-body-sm">Nunito Regular</span><span class="text-body-mono">15px · 155% · 1%</span><span class="use text-body-sm">Texto secundario y descripciones de interfaz</span></div><p class="type-sample text-body-md">Texto secundario y descripciones de la interfaz, como el detalle de un horario o una aclaración.</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-body-sm</code><span class="text-body-sm">Nunito Regular</span><span class="text-body-mono">13px · 150% · 1.5%</span><span class="use text-body-sm">Aclaraciones y notas al pie</span></div><p class="type-sample text-body-sm">Aclaraciones al pie. Los precios no incluyen envío.</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-label-lg</code><span class="text-body-sm">Nunito SemiBold</span><span class="text-body-mono">15px · 130% · 2%</span><span class="use text-body-sm">Botones primarios y etiquetas destacadas</span></div><p class="type-sample text-label-lg">Ver ficha completa</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-label-md</code><span class="text-body-sm">Nunito Medium</span><span class="text-body-mono">13px · 130% · 3%</span><span class="use text-body-sm">Botones, chips y navegación</span></div><p class="type-sample text-label-md">Guardar</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-label-sm</code><span class="text-body-sm">Nunito Medium</span><span class="text-body-mono">11px · 130% · 4%</span><span class="use text-body-sm">Badges y micro-texto</span></div><p class="type-sample text-label-sm">Nuevo</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-label-mono</code><span class="text-body-sm">JetBrains Mono Medium</span><span class="text-body-mono">12px · 130% · 4%</span><span class="use text-body-sm">Distancias, horarios, precios, códigos postales</span></div><p class="type-sample text-label-mono">350 m · 09:00–18:00 · $4.500</p></div><div class="type-row"><div class="type-meta"><code class="text-label-mono">.text-body-mono</code><span class="text-body-sm">JetBrains Mono Regular</span><span class="text-body-mono">13px · 150% · 2%</span><span class="use text-body-sm">Datos numéricos y bloques de metadata</span></div><p class="type-sample text-body-mono">Código 0482 · 3 reseñas · 4,8 de 5</p></div>
+      </div>
+    </section>
+
+    <section id="componentes" class="sec" aria-labelledby="t-componentes">
+      <header class="sec-head">
+        <p class="eyebrow text-label-sm">Aplicación</p>
+        <h2 id="t-componentes" class="text-headline-lg">Componentes de ejemplo</h2>
+        <p class="lead">Seis piezas armadas solo con tokens. El CSS de cada bloque es el mismo que usa esta página. Los radios y espacios son valores fijos porque todavía no hay tokens para ellos.</p>
+      </header>
+
+      <article class="comp">
+        <div class="comp-head">
+          <h3 class="text-headline-md">Botones</h3>
+          <p class="lead">Uso: <code class="inline">class="v-btn v-btn--primary text-label-lg"</code></p>
+        </div>
+        <div class="stage">
+          <button class="v-btn v-btn--primary text-label-lg" type="button">Primario</button>
+          <button class="v-btn v-btn--secondary text-label-lg" type="button">Secundario</button>
+          <button class="v-btn v-btn--tonal text-label-lg" type="button">Tonal</button>
+          <button class="v-btn v-btn--outline text-label-lg" type="button">Contorno</button>
+          <button class="v-btn v-btn--error text-label-lg" type="button">Eliminar</button>
+          <button class="v-btn v-btn--primary text-label-lg" type="button" disabled>Deshabilitado</button>
+        </div>
+        <div class="code"><div class="code-bar"><span class="text-label-mono">CSS</span><button class="code-copy text-label-md" type="button" data-copy-target="code-button" data-label="código">Copiar</button></div><pre id="code-button"><code><span class="s">.v-btn</span> {
+  <span class="p">display</span>: inline-flex;
+  <span class="p">align-items</span>: center;
+  <span class="p">justify-content</span>: center;
+  <span class="p">min-height</span>: 44px;
+  <span class="p">padding</span>: 0 20px;
+  <span class="p">border</span>: 1.5px solid transparent;
+  <span class="p">border-radius</span>: 12px;
+  <span class="p">cursor</span>: pointer;
+  <span class="p">transition</span>: filter 0.15s;
+}
+<span class="s">.v-btn:hover:not(:disabled)</span> {
+  <span class="p">filter</span>: brightness(0.93);
+}
+<span class="s">.v-btn:focus-visible</span> {
+  <span class="p">outline</span>: 2px solid <span class="v">var(--color-secondary)</span>;
+  <span class="p">outline-offset</span>: 2px;
+}
+<span class="s">.v-btn:disabled</span> {
+  <span class="p">opacity</span>: 0.38;
+  <span class="p">cursor</span>: not-allowed;
+}
+<span class="s">.v-btn--primary</span> {
+  <span class="p">background</span>: <span class="v">var(--color-primary)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-primary)</span>;
+}
+<span class="s">.v-btn--secondary</span> {
+  <span class="p">background</span>: <span class="v">var(--color-secondary)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-secondary)</span>;
+}
+<span class="s">.v-btn--tonal</span> {
+  <span class="p">background</span>: <span class="v">var(--color-primary-container)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-primary-container)</span>;
+}
+<span class="s">.v-btn--outline</span> {
+  <span class="p">background</span>: transparent;
+  <span class="p">border-color</span>: <span class="v">var(--color-secondary)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-secondary)</span>;
+}
+<span class="s">.v-btn--error</span> {
+  <span class="p">background</span>: <span class="v">var(--color-error)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-error)</span>;
+}</code></pre></div>
+      </article>
+
+      <article class="comp">
+        <div class="comp-head">
+          <h3 class="text-headline-md">Chips y badges</h3>
+          <p class="lead">Los chips filtran y los badges marcan estado. Los dos usan el par container y on-container.</p>
+        </div>
+        <div class="stage">
+          <span class="v-chip text-label-md">Cerámica</span>
+          <span class="v-chip v-chip--selected text-label-md">Abierto ahora</span>
+          <span class="v-badge text-label-sm">Nuevo</span>
+          <span class="v-badge v-badge--primary text-label-sm">Destacado</span>
+          <span class="v-badge v-badge--error text-label-sm">Cerrado</span>
+        </div>
+        <div class="code"><div class="code-bar"><span class="text-label-mono">CSS</span><button class="code-copy text-label-md" type="button" data-copy-target="code-chip" data-label="código">Copiar</button></div><pre id="code-chip"><code><span class="s">.v-chip</span> {
+  <span class="p">display</span>: inline-flex;
+  <span class="p">align-items</span>: center;
+  <span class="p">min-height</span>: 32px;
+  <span class="p">padding</span>: 0 12px;
+  <span class="p">border-radius</span>: 999px;
+  <span class="p">background</span>: <span class="v">var(--color-container-high)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-surface)</span>;
+}
+<span class="s">.v-chip--selected</span> {
+  <span class="p">background</span>: <span class="v">var(--color-secondary-container)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-secondary-container)</span>;
+}
+<span class="s">.v-badge</span> {
+  <span class="p">display</span>: inline-flex;
+  <span class="p">padding</span>: 2px 8px;
+  <span class="p">border-radius</span>: 6px;
+  <span class="p">background</span>: <span class="v">var(--color-tertiary-container)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-tertiary-container)</span>;
+}
+<span class="s">.v-badge--primary</span> {
+  <span class="p">background</span>: <span class="v">var(--color-primary-container)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-primary-container)</span>;
+}
+<span class="s">.v-badge--error</span> {
+  <span class="p">background</span>: <span class="v">var(--color-error-container)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-error-container)</span>;
+}</code></pre></div>
+      </article>
+
+      <article class="comp">
+        <div class="comp-head">
+          <h3 class="text-headline-md">Ficha</h3>
+          <p class="lead">Una card con sombra <code class="inline">--shadow-card</code>. El título usa <code class="inline">display-sm</code>, los datos usan <code class="inline">label-mono</code> y la descripción usa <code class="inline">body-md</code>.</p>
+        </div>
+        <div class="stage">
+          <article class="v-card">
+            <div class="v-card__media" aria-hidden="true"></div>
+            <div class="v-card__body">
+              <h4 class="text-display-sm">Taller de cerámica</h4>
+              <p class="v-card__meta text-label-mono">350 m · 09:00–18:00</p>
+              <p class="text-body-md">Piezas hechas a mano y clases para principiantes los sábados.</p>
+            </div>
+            <div class="v-card__foot">
+              <span class="text-label-mono">$4.500</span>
+              <button class="v-btn v-btn--tonal text-label-md" type="button">Ver ficha</button>
+            </div>
+          </article>
+        </div>
+        <div class="code"><div class="code-bar"><span class="text-label-mono">CSS</span><button class="code-copy text-label-md" type="button" data-copy-target="code-card" data-label="código">Copiar</button></div><pre id="code-card"><code><span class="s">.v-card</span> {
+  <span class="p">display</span>: flex;
+  <span class="p">flex-direction</span>: column;
+  <span class="p">width</span>: min(100%, 320px);
+  <span class="p">overflow</span>: hidden;
+  <span class="p">border-radius</span>: 16px;
+  <span class="p">background</span>: <span class="v">var(--color-container-lowest)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-surface)</span>;
+  <span class="p">box-shadow</span>: <span class="v">var(--shadow-card)</span>;
+}
+<span class="s">.v-card__media</span> {
+  <span class="p">aspect-ratio</span>: 16 / 10;
+  <span class="p">background</span>: linear-gradient(135deg, <span class="v">var(--color-primary-container)</span>, <span class="v">var(--color-tertiary-container)</span>);
+}
+<span class="s">.v-card__body</span> {
+  <span class="p">display</span>: flex;
+  <span class="p">flex-direction</span>: column;
+  <span class="p">gap</span>: 8px;
+  <span class="p">padding</span>: 16px;
+}
+<span class="s">.v-card__meta</span> {
+  <span class="p">color</span>: <span class="v">var(--color-on-surface-variant)</span>;
+}
+<span class="s">.v-card__foot</span> {
+  <span class="p">display</span>: flex;
+  <span class="p">align-items</span>: center;
+  <span class="p">justify-content</span>: space-between;
+  <span class="p">gap</span>: 12px;
+  <span class="p">padding</span>: 0 16px 16px;
+}</code></pre></div>
+      </article>
+
+      <article class="comp">
+        <div class="comp-head">
+          <h3 class="text-headline-md">Campo de texto</h3>
+          <p class="lead">El borde usa <code class="inline">on-surface-variant</code> para que se vea. El foco sube a <code class="inline">primary</code> y el error cambia a <code class="inline">error</code>.</p>
+        </div>
+        <div class="stage">
+          <label class="v-field" for="demo-nombre">
+            <span class="v-field__label text-label-md">Nombre del taller</span>
+            <input class="v-field__input text-body-md" id="demo-nombre" type="text" placeholder="Ej: Cerámica del Sur">
+            <span class="v-field__help text-body-sm">Se muestra en la ficha pública.</span>
+          </label>
+          <label class="v-field v-field--error" for="demo-cp">
+            <span class="v-field__label text-label-md">Código postal</span>
+            <input class="v-field__input text-body-md" id="demo-cp" type="text" value="12" aria-invalid="true">
+            <span class="v-field__help text-body-sm">Ingresá los 4 dígitos.</span>
+          </label>
+        </div>
+        <div class="code"><div class="code-bar"><span class="text-label-mono">CSS</span><button class="code-copy text-label-md" type="button" data-copy-target="code-input" data-label="código">Copiar</button></div><pre id="code-input"><code><span class="s">.v-field</span> {
+  <span class="p">display</span>: flex;
+  <span class="p">flex-direction</span>: column;
+  <span class="p">gap</span>: 6px;
+  <span class="p">width</span>: min(100%, 320px);
+}
+<span class="s">.v-field__input</span> {
+  <span class="p">min-height</span>: 44px;
+  <span class="p">padding</span>: 0 14px;
+  <span class="p">border</span>: 1px solid <span class="v">var(--color-on-surface-variant)</span>;
+  <span class="p">border-radius</span>: 12px;
+  <span class="p">background</span>: <span class="v">var(--color-container-lowest)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-surface)</span>;
+}
+<span class="s">.v-field__input:focus-visible</span> {
+  <span class="p">outline</span>: 2px solid <span class="v">var(--color-primary)</span>;
+  <span class="p">outline-offset</span>: 1px;
+  <span class="p">border-color</span>: <span class="v">var(--color-primary)</span>;
+}
+<span class="s">.v-field__help</span> {
+  <span class="p">color</span>: <span class="v">var(--color-on-surface-variant)</span>;
+}
+<span class="s">.v-field--error .v-field__input</span> {
+  <span class="p">border-color</span>: <span class="v">var(--color-error)</span>;
+}
+<span class="s">.v-field--error .v-field__help</span> {
+  <span class="p">color</span>: <span class="v">var(--color-error)</span>;
+}</code></pre></div>
+      </article>
+
+      <article class="comp">
+        <div class="comp-head">
+          <h3 class="text-headline-md">Alertas y snackbar</h3>
+          <p class="lead">Las alertas viven en la página. El snackbar usa las superficies inversas y flota con la sombra de flyout.</p>
+        </div>
+        <div class="stage stage--col">
+          <div class="v-alert text-body-md" role="note">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 9v5M10 6.2v.1"/></svg>
+            <p>Tu ficha está en revisión. Te avisamos cuando se publique.</p>
+          </div>
+          <div class="v-alert v-alert--error text-body-md" role="alert">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 5.8v5M10 13.8v.1"/></svg>
+            <p>No pudimos guardar los cambios. Revisá tu conexión e intentá de nuevo.</p>
+          </div>
+          <div class="v-snackbar text-body-md">
+            <span>Ficha guardada</span>
+            <button class="v-snackbar__action text-label-md" type="button">Deshacer</button>
+          </div>
+        </div>
+        <div class="code"><div class="code-bar"><span class="text-label-mono">CSS</span><button class="code-copy text-label-md" type="button" data-copy-target="code-alert" data-label="código">Copiar</button></div><pre id="code-alert"><code><span class="s">.v-alert</span> {
+  <span class="p">display</span>: flex;
+  <span class="p">gap</span>: 12px;
+  <span class="p">padding</span>: 14px 16px;
+  <span class="p">border-radius</span>: 12px;
+  <span class="p">background</span>: <span class="v">var(--color-tertiary-container)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-tertiary-container)</span>;
+}
+<span class="s">.v-alert--error</span> {
+  <span class="p">background</span>: <span class="v">var(--color-error-container)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-error-container)</span>;
+}
+<span class="s">.v-snackbar</span> {
+  <span class="p">display</span>: flex;
+  <span class="p">align-items</span>: center;
+  <span class="p">justify-content</span>: space-between;
+  <span class="p">gap</span>: 16px;
+  <span class="p">padding</span>: 12px 16px;
+  <span class="p">border-radius</span>: 12px;
+  <span class="p">background</span>: <span class="v">var(--color-inverse-surface)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-inverse-on-surface)</span>;
+  <span class="p">box-shadow</span>: <span class="v">var(--shadow-flyout)</span>;
+}
+<span class="s">.v-snackbar__action</span> {
+  <span class="p">padding</span>: 4px 8px;
+  <span class="p">border</span>: 0;
+  <span class="p">background</span>: none;
+  <span class="p">color</span>: <span class="v">var(--color-inverse-primary)</span>;
+  <span class="p">cursor</span>: pointer;
+}</code></pre></div>
+      </article>
+
+      <article class="comp">
+        <div class="comp-head">
+          <h3 class="text-headline-md">Diálogo</h3>
+          <p class="lead">El scrim se calcula con <code class="inline">on-surface</code> al 42%. El diálogo usa <code class="inline">container-lowest</code> y la sombra más alta.</p>
+        </div>
+        <div class="stage stage--dialog">
+          <div class="mock-page" aria-hidden="true">
+            <div class="mock-bar" style="width:46%"></div>
+            <div class="mock-bar" style="width:82%"></div>
+            <div class="mock-bar" style="width:64%"></div>
+            <div class="mock-bar" style="width:74%"></div>
+          </div>
+          <div class="v-scrim">
+            <div class="v-dialog" role="dialog" aria-label="Guardar ficha">
+              <h4 class="text-headline-md">¿Guardar esta ficha?</h4>
+              <p class="text-body-md">Va a quedar visible para todos los que busquen en tu zona.</p>
+              <div class="v-dialog__actions">
+                <button class="v-btn v-btn--outline text-label-lg" type="button">Cancelar</button>
+                <button class="v-btn v-btn--primary text-label-lg" type="button">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code"><div class="code-bar"><span class="text-label-mono">CSS</span><button class="code-copy text-label-md" type="button" data-copy-target="code-dialog" data-label="código">Copiar</button></div><pre id="code-dialog"><code><span class="s">.v-scrim</span> {
+  <span class="p">position</span>: fixed;
+  <span class="p">inset</span>: 0;
+  <span class="p">display</span>: grid;
+  <span class="p">place-items</span>: center;
+  <span class="p">padding</span>: 24px;
+  <span class="p">background</span>: color-mix(in srgb, <span class="v">var(--color-on-surface)</span> 42%, transparent);
+}
+<span class="s">.v-dialog</span> {
+  <span class="p">display</span>: flex;
+  <span class="p">flex-direction</span>: column;
+  <span class="p">gap</span>: 12px;
+  <span class="p">width</span>: min(100%, 360px);
+  <span class="p">padding</span>: 24px;
+  <span class="p">border-radius</span>: 20px;
+  <span class="p">background</span>: <span class="v">var(--color-container-lowest)</span>;
+  <span class="p">color</span>: <span class="v">var(--color-on-surface)</span>;
+  <span class="p">box-shadow</span>: <span class="v">var(--shadow-flyout)</span>;
+}
+<span class="s">.v-dialog__actions</span> {
+  <span class="p">display</span>: flex;
+  <span class="p">justify-content</span>: flex-end;
+  <span class="p">gap</span>: 8px;
+  <span class="p">margin-top</span>: 8px;
+}</code></pre></div>
+      </article>
+    </section>
+
+    <section id="cuidados" class="sec" aria-labelledby="t-cuidados">
+      <header class="sec-head">
+        <p class="eyebrow text-label-sm">Aplicación</p>
+        <h2 id="t-cuidados" class="text-headline-lg">Cuidados al usar los tokens</h2>
+        <p class="lead">Cinco cosas para tener presentes antes de armar pantallas.</p>
+      </header>
+      <div class="care">
+        <div class="care-item">
+          <h3 class="text-headline-sm">Texto chico sobre primary y tertiary</h3>
+          <p class="text-body-md">El blanco sobre terracota da 3.95:1 y sobre celeste da 3.85:1. Alcanza para texto grande, íconos y componentes, pero no para texto normal. Para texto chico sobre un acento usá <code class="inline">primary-container</code> con <code class="inline">on-primary-container</code>.</p>
+        </div>
+        <div class="care-item">
+          <h3 class="text-headline-sm">Outline es para divisores</h3>
+          <p class="text-body-md"><code class="inline">outline</code> sobre el fondo da 1.29:1. Sirve para líneas que separan secciones. En bordes de campos y controles usá <code class="inline">on-surface-variant</code>.</p>
+          <div class="oc-row text-label-mono">
+            <div class="oc oc-weak">outline</div>
+            <div class="oc oc-strong">on-surface-variant</div>
+          </div>
+        </div>
+        <div class="care-item">
+          <h3 class="text-headline-sm">Siempre el par on-*</h3>
+          <p class="text-body-md">El texto sobre <code class="inline">secondary</code> es <code class="inline">on-secondary</code>, no <code class="inline">on-surface</code>. Los pares de la sección anterior ya están calculados.</p>
+        </div>
+        <div class="care-item">
+          <h3 class="text-headline-sm">Nada de hex en los componentes</h3>
+          <p class="text-body-md">Si escribís <code class="inline">#c26745</code> en un componente, ese valor no sigue al sistema cuando cambie. Usá la variable.</p>
+        </div>
+        <div class="care-item">
+          <h3 class="text-headline-sm">Solo tema Light</h3>
+          <p class="text-body-md">Todavía no hay valores para modo oscuro. Los tokens <code class="inline">*-fixed</code> son los que no van a cambiar cuando se defina.</p>
+        </div>
+      </div>
+      <p class="foot text-body-sm">VentuUI · Tokens. Generado a partir de Ventu-tokens.json, tema Light.</p>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast text-label-md" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  var timer;
+  function show(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  function selectNode(node) {
+    var range = document.createRange();
+    range.selectNodeContents(node);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-copy],[data-copy-target]');
+    if (!btn) return;
+    var node = btn.getAttribute('data-copy-target') ? document.getElementById(btn.getAttribute('data-copy-target')) : null;
+    var text = btn.getAttribute('data-copy') || (node ? node.textContent : '');
+    var label = btn.getAttribute('data-label') || text;
+    function fallback() {
+      if (node) {
+        selectNode(node);
+        show('Texto seleccionado. Copialo con Ctrl o Cmd + C');
+      } else {
+        show('No se pudo copiar. Escribí: ' + text);
+      }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { show('Copiado: ' + label); }, fallback);
+    } else {
+      fallback();
+    }
+  });
+
+  var links = [].slice.call(document.querySelectorAll('.rail-group a'));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        links.forEach(function (a) { a.removeAttribute('aria-current'); });
+        var a = byId[en.target.id];
+        if (a) a.setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    [].slice.call(document.querySelectorAll('main section[id]')).forEach(function (s) { io.observe(s); });
+  }
+})();
+</script>
+
+</body></html>
